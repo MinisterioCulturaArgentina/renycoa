@@ -1,0 +1,22 @@
+<?$contrasena = $this->element->getElement('contrasena');?>
+<?$contrasena_confirm = $this->element->getElement('contrasena_confirm');?>
+
+<form enctype="application/x-www-form-urlencoded" method="post" action="">
+	<dl>
+		
+		<dt><label for="contrasena"><?=$contrasena->getLabel() ?></label></dt>
+		<dd>
+			<div class="description"><?=$contrasena->getDescription() ?></div>
+			<?=$contrasena->render()?>
+		</dd>
+		<dt><label for="contrasena_confirm"><?=$contrasena_confirm->getLabel() ?></label></dt>
+		<dd>
+			<?=$contrasena_confirm->render()?>
+		</dd>
+		
+		<dt> </dt>
+		<dd>
+     		<input type="submit" name="submit" id="submit" value="Enviar">
+     	</dd>
+     </dl>
+</form>

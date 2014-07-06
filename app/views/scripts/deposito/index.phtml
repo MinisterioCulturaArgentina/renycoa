@@ -1,0 +1,85 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<h3>Depósitos</h3>
+<p><?=$this->actionLink('Nuevo depósito', 'deposito','edit') ?></p>
+<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+	<p class="message">(no se han cargado depósitos)</p>
+<? else: ?>
+	<table class="grid" id="tbl_deposito">
+		<thead>
+			<tr>
+				<th>
+					<span class="<?=$grid['deposito_nombre_className']?>">
+						<a href="#" onclick="setFormValue('deposito:deposito_nombre', 'grid::order', false);setFormValue('<?=$grid['deposito_nombre_sense']?>', 'grid::sense', true);">Nombres</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['deposito_domicilio_className']?>">
+						<a href="#" onclick="setFormValue('deposito:deposito_domicilio', 'grid::order', false);setFormValue('<?=$grid['deposito_domicilio_sense']?>', 'grid::sense', true);">Domicilio</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['provincia_descripcion_className']?>">
+						<a href="#" onclick="setFormValue('provincia:provincia_descripcion', 'grid::order', false);setFormValue('<?=$grid['provincia_descripcion_sense']?>', 'grid::sense', true);">Provincia</a>
+					</span>
+				</th>
+				<th>Acciones</th>
+			</tr>
+			<tr id="search_params" class="search_params">
+				<td>
+					<input type="text" name="search_deposito:deposito_nombre" id="search_deposito:deposito_nombre" value="<?=$this->escape($grid['deposito_nombre_searchKey'])?>">
+				</td>
+				<td>
+					<input type="text" name="search_deposito:deposito_domicilio" id="search_deposito:deposito_domicilio" value="<?=$this->escape($grid['deposito_domicilio_searchKey'])?>">
+				</td>
+				<td>
+					<select name="search_provincia:provincia_id" id="search_provincia:provincia_id">
+						<option></option>
+	   					<? foreach ($this->provincias as $value=>$label): ?>
+	   						<? $selected = ( $value == $grid['provincia_id_searchKey']) ? 'selected="selected"' : ''; ?>
+	   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+	   					<? endforeach; ?>
+					</select>
+				</td>
+				<td class="actions">
+					<div>
+					<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+					<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+					</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+		<? $odd = true; ?>
+		<? foreach ((array)$grid['aData'] as $row): ?>
+			<tr class="<?=($odd)?'odd':'even' ?>">
+			<? $odd = !$odd; ?>
+				<td><?=$this->escape($row['deposito_nombre']) ?></td>
+				<td><?=$this->escape($row['deposito_domicilio'])?></td>
+				<td><?=$this->escape($row['provincia_descripcion'])?></td>
+				<td class="actions">
+					<div>
+					<?=$this->actionLink('Ver', 
+						'deposito','view',
+						array('id' => $row['deposito_id']), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+					<?=$this->actionLink('Editar', 
+						'deposito',
+						'edit',array('id' => $row['deposito_id']), array('class'=>'edit'),
+						true, array('class'=>'edit disabled')) ?>
+					<?=$this->actionLink('Eliminar', 
+						'deposito','delete',
+						array('id' => $row['deposito_id']), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+						true, array('class'=>'delete disabled')) ?>
+					</div>
+				</td>
+			</tr>
+		<? endforeach; ?>
+		</tbody>
+	</table>
+<? endif; ?>
+<?=$this->dataGridPager('grid') ?>
+<?=$this->dataGridSubmit() ?>
+

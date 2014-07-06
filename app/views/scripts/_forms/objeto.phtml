@@ -1,0 +1,233 @@
+<?$id = $this->element->getElement('id');?>
+<?$sigla = $this->element->getElement('sigla');?>
+<?$nombre = $this->element->getElement('nombre');?>
+<?$nro_inventario = $this->element->getElement('nro_inventario');?>
+<?$coleccion_id = $this->element->getElement('coleccion_id');?>
+<?$tipo_material_id = $this->element->getElement('tipo_material_id');?>
+<?$cantidad_objetos = $this->element->getElement('cantidad_objetos');?>
+<?$pais_id = $this->element->getElement('pais_id');?>
+<?$provincia_id = $this->element->getElement('provincia_id');?>
+<?$hidden_provincia_id = $this->element->getElement('hidden_provincia_id');?>
+<?$departamento_id = $this->element->getElement('departamento_id');?>
+<?$hidden_departamento_id = $this->element->getElement('hidden_departamento_id');?>
+<?$localidad_id = $this->element->getElement('localidad_id');?>
+<?$hidden_localidad_id = $this->element->getElement('hidden_localidad_id');?>
+<?$pais_detalle = $this->element->getElement('pais_detalle');?>
+<?$yacimiento_id = $this->element->getElement('yacimiento_id');?>
+<?$forma = $this->element->getElement('forma');?>
+<?$alto = $this->element->getElement('alto');?>
+<?$ancho = $this->element->getElement('ancho');?>
+<?$espesor = $this->element->getElement('espesor');?>
+<?$decoracion = $this->element->getElement('decoracion');?>
+<?$caracs_distintivas = $this->element->getElement('caracs_distintivas');?>
+<?$adscripcion_cultural_id = $this->element->getElement('adscripcion_cultural_id');?>
+<?$estado_completitud_id = $this->element->getElement('estado_completitud_id');?>
+<?$estado_fragmentacion_id = $this->element->getElement('estado_fragmentacion_id');?>
+<?$estados_estructurales = $this->element->getElement('estados_estructurales');?>
+<?$estado_superficie_id = $this->element->getElement('estado_superficie_id');?>
+<?$estado_superficie_detalle = $this->element->getElement('estado_superficie_detalle');?>
+<?$estado_conservacion = $this->element->getElement('estado_conservacion');?>
+<?$deterioros_superficiales = $this->element->getElement('deterioros_superficiales');?>
+<?$deterioros_quimicos = $this->element->getElement('deterioros_quimicos');?>
+<?$deterioros_biologicos = $this->element->getElement('deterioros_biologicos');?>
+<?$deterioros_mecanicos = $this->element->getElement('deterioros_mecanicos');?>
+<?$completado_por = $this->element->getElement('completado_por');?>
+<?$tipo_doc_completador_id = $this->element->getElement('tipo_doc_completador_id');?>
+<?$completador_nro_doc = $this->element->getElement('completador_nro_doc');?>
+<?$fecha = $this->element->getElement('fecha');?>
+<?$submit = $this->element->getElement('submit');?>
+ <?$new = $this->element->getElement('new');?>
+
+<form id="<?=$this->element->getAttrib('id')?>" enctype="application/x-www-form-urlencoded" method="post" action="">
+	<?=$id->render()?>
+	<fieldset>
+		<legend>1 - Identificación del Objeto</legend>
+		<table>
+			<tr>
+				<th><label for="sigla"><?=$sigla->getLabel() ?></label></th>
+				<td><?=$sigla->render()?></td>
+				<td class="fill_column">&nbsp;</td>
+				<th><label for="coleccion_id"><?=$coleccion_id->getLabel() ?></label></th>
+				<td><?=$coleccion_id->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="tipo_material_id"><?=$tipo_material_id->getLabel() ?></label></th>
+				<td><?=$tipo_material_id->render()?></td>
+				<td>&nbsp;</td>
+				<th><label for="nombre"><?=$nombre->getLabel() ?></label></th>
+				<td><?=$nombre->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="nro_inventario"><?=$nro_inventario->getLabel() ?></label></th>
+				<td colspan="4"><?=$nro_inventario->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>2 - Procedencia</legend>
+		<table>
+			<tr>
+				<th><label for="pais_id"><?=$pais_id->getLabel() ?></label></th>
+				<td><?=$pais_id->render()?></td>
+				<td class="fill_column">&nbsp;</td>
+				<th class="pais_det" style="display:none"><label for="pais_detalle"><?=$pais_detalle->getLabel() ?></label></th>
+        <td class="pais_det" style="display:none"><?=$pais_detalle->render()?></td>
+				<th class="pais_spec"><label for="provincia_id"><?=$provincia_id->getLabel() ?></label></th>
+				<td class="pais_spec"><?=$provincia_id->render()?><?=$hidden_provincia_id->render()?></td>
+			</tr>
+			<tr class="pais_spec">
+				<th><label for="departamento_id"><?=$departamento_id->getLabel() ?></label></th>
+				<td><?=$departamento_id->render()?><?=$hidden_departamento_id->render()?></td>
+				<td>&nbsp;</td>
+				<th><label for="localidad_id"><?=$localidad_id->getLabel() ?></label></th>
+				<td><?=$localidad_id->render()?><?=$hidden_localidad_id->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="yacimiento_id"><?=$yacimiento_id->getLabel() ?></label></th>
+				<td colspan="4"><?=$yacimiento_id->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>3 - Descripción del Objeto</legend>
+		<table>
+			<tr>
+				<th colspan="2">Medidas</th>
+				<td rowspan="7">&nbsp;</td>
+				<th colspan="2"><label for="decoracion"><?=$decoracion->getLabel() ?></label></th>
+			</tr>
+			<tr>
+				<td><label for="espesor"><?=$espesor->getLabel() ?></label></td>
+				<td><?=$espesor->render()?> cm.</td>
+				<td colspan="2" rowspan="3"><?=$decoracion->render()?></td>
+			</tr>
+			<tr>
+				<td><label for="alto"><?=$alto->getLabel() ?></label></td>
+				<td><?=$alto->render()?> cm.</td>
+			</tr>
+			<tr>
+				<td><label for="ancho"><?=$ancho->getLabel() ?></label></td>
+				<td><?=$ancho->render()?> cm.</td>
+			</tr>
+
+			<tr>
+				<td colspan="3">&nbsp;</td>
+				<th><label for="caracs_distintivas"><?=$caracs_distintivas->getLabel() ?></label></th>
+			</tr>
+			<tr>
+				<th><label for="forma"><?=$forma->getLabel() ?></label></th>
+				<td>
+					<?=$forma->render()?>
+				</td>
+				<td rowspan="2"><?=$caracs_distintivas->render()?></td>
+			</tr>
+			
+			<tr>
+				<th><label for="adscripcion_cultural_id"><?=$adscripcion_cultural_id->getLabel() ?></label></th>
+				<td><?=$adscripcion_cultural_id->render()?></td>
+			</tr>
+			
+		</table>
+	</fieldset>	
+	
+	<fieldset>
+		<legend>4 - Estado de Conservación</legend>
+		<table>
+			<tr>
+				<th rowspan="3"><label>Estado Estructural</label></th>
+				<td>
+					<?=$estado_completitud_id->render()?>
+					<br /><a href="" rel="estado_completitud_id" class="unselect">desmarcar</a>
+				</td>
+				<td rowspan="7" class="fill_column">&nbsp;</td>
+				<th rowspan="2"><label>Estado de la superficie / decoración</label></th>
+				<td>
+					<?=$estado_superficie_id->render()?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?=$estado_fragmentacion_id->render()?>
+					<br /><a href="" rel="estado_fragmentacion_id" class="unselect">desmarcar</a>
+				</td>
+				<td>
+					<div id="deterioros_superficiales">
+						<?=$deterioros_superficiales->render()?>
+					</div>
+					<a href="" rel="estado_superficie_id" class="unselect">desmarcar</a>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<?=$estados_estructurales->render()?>
+				</td>
+				<th>Estado de la superficie (detalle)</th>
+				<td>
+					<?=$estado_superficie_detalle->render()?>
+				</td>
+			</tr>
+      <tr>     
+        <th colspan="2">
+          <label>Características del deterioro</label>
+        </th>
+        <th rowspan="4">Estado de conservación</th>
+        <td rowspan="4">
+          <?=$estado_conservacion->render()?>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: right"><label for="deterioros_quimicos"><?=$deterioros_quimicos->getLabel()?></label></td>
+        <td><?=$deterioros_quimicos->render()?></td>
+      </tr>
+      <tr>
+        <td style="text-align: right"><label for="deterioros_mecanicos"><?=$deterioros_mecanicos->getLabel()?></label></td>
+        <td><?=$deterioros_mecanicos->render()?></td>
+      </tr>
+      <tr>
+        <td style="text-align: right"><label for="deterioros_biologicos"><?=$deterioros_biologicos->getLabel()?></label></td>
+        <td><?=$deterioros_biologicos->render()?></td>
+      </tr>
+		</table>
+	</fieldset>	
+
+					
+	<fieldset>
+		<legend>5 - Datos del tenedor</legend>
+		<div id="tenedor_container">
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<legend>6 - Fotografías</legend>
+			<iframe src="<?=$this->url('fotografia','index',array('objeto_id'=>$id->getValue()),Zend_Registry::get('config')->base_url)?>" 
+			scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; height:250px; width:100%"></iframe>
+	</fieldset>	
+
+	<fieldset>
+		<legend>Datos de la ficha</legend>
+		<table>
+		  <tr>
+        <th><label for="tipo_doc_completador_id"><?=$tipo_doc_completador_id->getLabel() ?></label></th>
+        <td><?=$tipo_doc_completador_id->render()?></td>
+        <td class="fill_column">&nbsp;</td>
+        <th><label for="completador_nro_doc"><?=$completador_nro_doc->getLabel() ?></label></th>
+        <td><?=$completador_nro_doc->render()?></td>
+      </tr>
+			<tr>
+				<th><label for="completado_por"><?=$completado_por->getLabel() ?></label></th>
+				<td><?=$completado_por->render()?></td>
+				<td class="fill_column">&nbsp;</td>
+				<th><label for="fecha"><?=$fecha->getLabel() ?></label></th>
+				<td><?=$fecha->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+
+	<p class="actions">
+    <?=$submit->render()?><?=$new->render()?><?=$new->getLabel() ?>
+	</p>
+</form>

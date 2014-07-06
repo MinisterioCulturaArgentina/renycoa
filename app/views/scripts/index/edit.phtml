@@ -1,0 +1,10 @@
+<h3>Mensaje - Edición</h3>  
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'index', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl>
+	<dt>Usuario:</dt>
+	<dd><?=$this->escape($this->usuario->nombre.' '.$this->usuario->apellido)?></dd>
+</dl>
+<?= $this->form ?> 

@@ -1,0 +1,12 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/datepicker/datepicker.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/datepicker/i18n/ui.datepicker-es.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/usuario_edit.js');
+$this->headLink()->appendStylesheet($this->baseUrl . 'styles/datepicker.css');
+?>
+<h3>Usuario - Edición</h3>  
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'usuario', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<?= $this->form; ?> 

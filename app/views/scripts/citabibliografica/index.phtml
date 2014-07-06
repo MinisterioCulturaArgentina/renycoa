@@ -1,0 +1,93 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<? if ( $this->yacimiento_id ): ?>
+	<? if ($this->mode == 'edit'): ?>
+		<p><?=$this->actionLink('Nueva Cita Bibliográfica', 'citabibliografica','edit', array('yacimiento_id'=>$this->yacimiento_id,'mode'=> $this->mode)) ?></p>
+	<? endif; ?>
+	<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+		<p class="message">(no se han cargado citas bibliográficas)</p>
+	<? else: ?>
+		<table class="grid" id="tbl_citabibliografica">
+			<thead>
+				<tr>
+					<th>
+						<span class="<?=$grid['citabibliografica_autores_className']?>">
+							<a href="#" onclick="setFormValue('cita_bibliografica:citabibliografica_autores', 'grid::order', false);setFormValue('<?=$grid['citabibliografica_autores_sense']?>', 'grid::sense', true);">Autor/es</a>
+						</span>
+					</th>
+					<th>
+						<span class="<?=$grid['citabibliografica_cita_className']?>">
+							<a href="#" onclick="setFormValue('cita_bibliografica:citabibliografica_cita', 'grid::order', false);setFormValue('<?=$grid['citabibliografica_cita_sense']?>', 'grid::sense', true);">Cita</a>
+						</span>
+					</th>
+					<th>
+						<span class="<?=$grid['citabibliografica_ano_className']?>">
+							<a href="#" onclick="setFormValue('cita_bibliografica:citabibliografica_ano', 'grid::order', false);setFormValue('<?=$grid['citabibliografica_ano_sense']?>', 'grid::sense', true);">Año</a>
+						</span>
+					</th>
+					<th>Acciones</th>
+				</tr>
+				<tr id="search_params" class="search_params">
+					<td>
+						<input type="text" name="search_cita_bibliografica:citabibliografica_autores" id="search_cita_bibliografica:citabibliografica_autores" value="<?=$this->escape($grid['citabibliografica_autores_searchKey'])?>"/>
+					</td>
+					<td>
+						<input type="text" name="search_cita_bibliografica:citabibliografica_cita" id="search_cita_bibliografica:citabibliografica_cita" value="<?=$this->escape($grid['citabibliografica_cita_searchKey'])?>"/>
+					</td>
+					<td>
+						<select name="search_cita_bibliografica:citabibliografica_ano" id="search_cita_bibliografica:citabibliografica_ano">
+							<option></option>
+		   					<? foreach ($this->years as $value=>$label): ?>
+		   						<? $selected = ( $value == $grid['citabibliografica_ano_searchKey']) ? 'selected="selected"' : ''; ?>
+		   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+		   					<? endforeach; ?>
+						</select>
+					</td>
+					<td class="actions">
+						<div>
+						<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+						<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+						</div>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+			<? $odd = true; ?>
+			<? foreach ((array)$grid['aData'] as $row): ?>
+				<tr class="<?=($odd)?'odd':'even' ?>">
+				<? $odd = !$odd; ?>
+					<td>
+						<?=$this->escape($row['citabibliografica_autores']) ?>
+					</td>
+					<td><?=$this->escape($row['citabibliografica_cita'])?></td>
+					<td><?=$this->escape($row['citabibliografica_ano'])?></td>
+					<td class="actions">
+						<div>
+						<?=$this->actionLink('Ver', 
+						'citabibliografica','view',
+						array('id' => $row['citabibliografica_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+						<? if ($this->mode == 'edit'): ?>
+							<?=$this->actionLink('Editar', 
+								'citabibliografica','edit',
+								array('id' => $row['citabibliografica_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'edit'),
+								true, array('class'=>'edit disabled')) ?>
+							<?=$this->actionLink('Eliminar', 
+								'citabibliografica','delete',
+								array('id' => $row['citabibliografica_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+						true, array('class'=>'delete disabled')) ?>
+						<? endif; ?>
+						</div>
+					</td>
+				</tr>
+			<? endforeach; ?>
+			</tbody>
+		</table>
+	<? endif; ?>
+	<?=$this->dataGridPager('grid') ?>
+	<?=$this->dataGridSubmit() ?>
+<? else: ?>
+	<p class="message">(podrá cargar citas luego de guardar el yacimiento)</p>
+<? endif; ?>

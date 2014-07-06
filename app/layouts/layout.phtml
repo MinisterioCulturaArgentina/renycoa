@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Expires" content="Mon, 26 Jul 1997 05:00:00 GMT"/>
+<meta http-equiv="Last-Modified" content="Sun, 25 Jul 2004 16:12:09 GMT"/>
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"/>
+<meta http-equiv="Pragma" content="nocache"/>
+<title><?=isset($this->pageTitle) ? $this->escape($this->pageTitle).' - ' : '' ?> Registro Nacional de Yacimientos, Colecciones y Objetos Arqueológicos</title>
+<script type="text/javascript" src="<?=$this->baseUrl . 'scripts/jquery.js'?>"></script>
+<?= $this->headScript(); ?>
+<?= $this->headLink()->appendStylesheet($this->baseUrl.'styles/layout.css'); ?>
+<?= $this->headLink()->appendStylesheet($this->baseUrl.'styles/common.css'); ?>
+<?= $this->headLink(); ?>
+<script type="text/javascript">
+//<![CDATA[
+<? $config = Zend_Registry::get('config'); ?>
+var REWRITE_ON = '<?=$config->url_rewrite ?>';
+var BASE_URL = '<?=$this->baseUrl?>';
+function getUrl(controller, action, query)
+{
+	var url = '';
+	if (REWRITE_ON)
+	{
+		url = BASE_URL + controller + '/' + action + '?' + query;
+	}
+	else
+	{
+		url = BASE_URL + '?controller=' + controller + '&action=' + action + '&' + query;
+	}
+	return url;
+}
+
+ 
+function confirmDelete() 
+{
+	var agree = confirm ('¿Confirma la eliminación del registro?');
+	if (agree)
+	{
+		return true ;
+	}
+	else
+	{
+		return false ;
+	}
+}
+
+
+$(document).ready(function() {
+	$('INPUT[type="checkbox"], INPUT[type="radio"], INPUT[type="button"], INPUT[type="submit"]').css('width','auto');
+});
+//]]>
+</script>
+</head>
+<body>
+<div id="container_outer">
+<div id="container_inner">
+	<!-- 
+	//<![CDATA[
+	<div id="header">
+		<h1>Secretaría de Cultura de la Nación</h1>
+		<h2>Registro Nacional de<br />Yacimientos, Colecciones <br />y Objetos Arqueológicos<br />INAPL</h2>
+	</div>
+	
+	//]]>
+	-->
+	<div id="navigation">
+		<?= $this->layout()->navigation; ?>
+	</div>
+	<div id="content">
+		<div id="userinfo">
+			<div id ="userinfo_inner">
+				<?= $this->layout()->userinfo; ?>
+			</div>
+		</div>
+		<div id="messages">
+			<?= $this->layout()->messages; ?>
+		</div>
+		<?= $this->layout()->content; ?>
+	</div>
+	<br style="clear:both"/>
+</div>
+<div id="footer"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.pngfix.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.fancybox.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/yacimiento_view.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/iframe_resize.js');
+$this->headLink()->appendStylesheet($this->baseUrl . 'styles/fancy.css');
+?>
+<h3>Yacimiento - Detalle</h3>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'yacimiento','index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+<h4>1 - Identificación del Yacimiento</h4>
+<dl class="view">
+	<dt>Sigla:</dt>
+	<dd><?=$this->escape($this->yacimiento->sigla) ?>&nbsp;</dd>
+	
+	<dt>Denominación del Sitio:</dt>
+	<dd><?=$this->escape($this->yacimiento->denominacion_sitio) ?>&nbsp;</dd>
+</dl>
+<h4>2 - Localización</h4>
+<dl class="view">
+	<dt>País:</dt>
+	<dd><?=Pais::findByPK($this->yacimiento->pais_id)?>&nbsp;</dd>
+	
+  <? if ($this->yacimiento->pais_id == 1): ?>
+	
+		<dt>Provincia:</dt>
+		<dd><?=Provincia::findByPK($this->yacimiento->provincia_id)?>&nbsp;</dd>
+		
+		<dt>Departamento:</dt>
+		<dd><?=Departamento::findByPK($this->yacimiento->departamento_id)?>&nbsp;</dd>
+		
+	  <dt>Localidad:</dt>
+    <dd><?=Localidad::findByPK($this->yacimiento->localidad_id)?>&nbsp;</dd>
+	
+	<? else: ?>
+	
+		<dt>Detalle:</dt>
+	  <dd><?=$this->yacimiento->pais_detalle?>&nbsp;</dd>
+	  
+	<? endif; ?>
+	
+
+	
+	<dt>Lugar / Paraje:</dt>
+	<dd><?=$this->escape($this->yacimiento->lugar_paraje) ?>&nbsp;</dd>
+</dl>
+<h5>Coordenadas Geográficas</h5>
+<dl class="view">
+	<dt>Altitud:</dt>
+	<dd><?=$this->escape($this->yacimiento->altitud) ?>&nbsp;</dd>
+	
+	<dt>Longitud:</dt>
+	<dd><?=$this->escape($this->yacimiento->longitud) ?>&nbsp;</dd>
+	
+	<dt>Latitud:</dt>
+	<dd><?=$this->escape($this->yacimiento->latitud) ?>&nbsp;</dd>
+	
+	<dt>Datum:</dt>
+	<dd><?=$this->escape($this->yacimiento->datum) ?>&nbsp;</dd>
+	
+	<dt>Carta IGM N°:</dt>
+	<dd><?=$this->escape($this->yacimiento->carta_igm) ?>&nbsp;</dd>
+	
+	<dt>Plano Catastral:</dt>
+	<dd><?=$this->escape($this->yacimiento->plano_catastral) ?>&nbsp;</dd>
+	
+	<dt>Croquis de Ubicación:</dt>
+	<dd><?=$this->yacimiento->croquis ? 'Si' :'No'?>&nbsp;</dd>
+</dl>
+<h4>3 - Datos del Sitio</h4>
+<dl class="view">
+	<dt>Plano del Sitio:</dt>
+	<dd><?=$this->yacimiento->plano_sitio ? 'Si' :'No'?>&nbsp;</dd>
+	
+	<dt>Provisorio:</dt>
+	<dd><?=$this->yacimiento->provisorio ? 'Si' :'No'?>&nbsp;</dd>
+	
+	<dt>FUR:</dt>
+	<dd><?=($this->yacimiento->fur) ? 'Si' :'No' ?>&nbsp;</dd>
+
+	<dt>Tipo de sitio:</dt>
+	<dd><?=TipoSitio::findByPK($this->yacimiento->tipo_sitio_id)?>&nbsp;</dd>
+	
+	<dt>Superficie Estimada en M2:</dt>
+	<dd><?=$this->escape($this->yacimiento->superficie) ?>&nbsp;</dd>
+
+	
+	<dt>Representaciones Rupestres:</dt>
+	<dd>
+		<ul>
+		<? foreach ($this->representaciones_rupestres as $representacion_rupestre): ?>
+			<li><?= $representacion_rupestre ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd>
+	
+	<dt>Tarea Realizada:</dt>
+	<dd>
+		<ul>
+		<? foreach ($this->tareas_realizadas as $tarea_realizada): ?>
+			<li><?= $tarea_realizada ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd>
+	
+	<dt>Función Inferida:</dt>
+	<dd>
+		<ul>
+		<? foreach ($this->funciones_inferidas as $funcion_inferida): ?>
+			<li><?= $funcion_inferida ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd>
+</dl>
+<h4>4 - Conservación</h4>
+<dl class="view">
+
+	<dt>Riesgo de Impacto Cultural:</dt>
+	<dd><?=RiesgoImpacto::findByPK($this->yacimiento->riesgo_impacto_cultural_id)?>&nbsp;</dd>
+	
+	<dt>Riesgo de Impacto Ambiental:</dt>
+	<dd><?=RiesgoImpacto::findByPK($this->yacimiento->riesgo_impacto_ambiental_id)?>&nbsp;</dd>
+	
+	<dt>Legislación de Protección:</dt>
+	<dd>
+		<ul>
+		<? foreach ($this->legislaciones_proteccion as $legislacion_proteccion): ?>
+			<li><?= $legislacion_proteccion ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd>
+	
+	<dt>Daños Antrópicos:</dt>
+	<dd><?=$this->yacimiento->danos_antropicos ? 'Si' :'No'?>&nbsp;<br/><?=$this->escape($this->yacimiento->danos_antropicos_desc) ?>&nbsp;</dd>
+	
+	<dt>Daños Naturales:</dt>
+	<dd><?=$this->yacimiento->danos_naturales ? 'Si' :'No'?>&nbsp;<br/><?=$this->escape($this->yacimiento->danos_naturales_desc) ?>&nbsp;</dd>
+	
+	<dt>Intervenciones:</dt>
+	<dd><?=$this->yacimiento->intervenciones ? 'Si' :'No'?>&nbsp;<br/><?=$this->escape($this->yacimiento->intervenciones_desc) ?>&nbsp;</dd>
+	
+	<dt>Observaciones Generales:</dt>
+	<dd><?=$this->escape($this->yacimiento->observaciones) ?>&nbsp;</dd>
+</dl>
+<h4>5 - Contexto Arqueológico</h4>
+<dl class="view">	
+	<dt>Tipo de vestigio:</dt>
+	<dd>
+		<ul>
+		<? foreach ($this->tipos_material as $tipo_material): ?>
+			<li><?= $tipo_material ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd>
+	
+	<dt>Dominio:</dt>
+	<dd><?=$this->escape(Dominio::findByPK($this->yacimiento->dominio_id)) ?>&nbsp;</dd>
+	
+</dl>
+<div class="noprint">
+	<h4>6 - Fechados</h4>
+	<iframe src="<?=$this->url('fechado','index',array('yacimiento_id'=>$this->yacimiento->id, 'mode'=>'view'),Zend_Registry::get('config')->base_url)?>" 
+	scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe>
+	<h4>7 - Investigaciones</h4>
+	<iframe src="<?=$this->url('investigacion','index',array('yacimiento_id'=>$this->yacimiento->id, 'mode'=>'view'),Zend_Registry::get('config')->base_url)?>" 
+	scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe>
+	<h4>8 - Citas Bibliográficas</h4>
+	<iframe src="<?=$this->url('citabibliografica','index',array('yacimiento_id'=>$this->yacimiento->id, 'mode'=>'view'),Zend_Registry::get('config')->base_url)?>" 
+	scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe>
+	<h4>9 - Fotografías</h4>
+	<iframe src="<?=$this->url('fotografia','index',array('yacimiento_id'=>$this->yacimiento->id, 'mode'=>'view'),Zend_Registry::get('config')->base_url)?>" 
+				scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe>
+</div>
+<h4>10 - Adscripciones Culturales</h4>
+<dl class="view">	
+	<dt>&nbsp;</dt>
+	<dd>
+		<ul>
+		<? foreach ($this->adscripciones_culturales as $adscripcion_cultural): ?>
+			<li><?= $adscripcion_cultural ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd>
+</dl>
+<h4>Datos de la ficha</h4>
+<dl class="view">		 
+	<dt>Completado por:</dt>
+	<dd><?=$this->escape($this->yacimiento->completado_por ) ?>&nbsp;</dd> 
+	
+	<dt>Fecha:</dt>
+	<dd><?=$this->yacimiento->fecha ?>&nbsp;</dd> 
+</dl>
+<div class="actions">
+<a href="#" onclick="window.open('<?=$this->url('yacimiento','view',array('id' => $this->yacimiento->id, 'print'=>true))?>','','height=720,width=960,scrollbars=yes')" class="print">Imprimir</a>
+<?=$this->actionLink('Editar', 
+	'yacimiento','edit',
+	array('id' => $this->yacimiento->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) ?>
+<?=$this->actionLink('Eliminar', 
+	'yacimiento','delete',
+	array('id' => $this->yacimiento->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) ?>
+</div>
+<br style="clear: both"/>

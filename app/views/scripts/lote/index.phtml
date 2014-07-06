@@ -1,0 +1,106 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<h3>Lotes</h3>
+<p><?=$this->actionLink('Nuevo lote', 'lote','edit') ?></p>
+<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+	<p class="message">(no se han cargado lotes)</p>
+<? else: ?>
+	<table class="grid" id="tbl_lote">
+		<thead>
+			<tr>
+				<th>
+					<span class="<?=$grid['coleccion_nombre_className']?>">
+						<a href="#" onclick="setFormValue('coleccion:coleccion_nombre', 'grid::order', false);setFormValue('<?=$grid['coleccion_nombre_sense']?>', 'grid::sense', true);">Colección</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['lote_sigla_className']?>">
+						<a href="#" onclick="setFormValue('lote:lote_sigla', 'grid::order', false);setFormValue('<?=$grid['lote_sigla_sense']?>', 'grid::sense', true);">Sigla</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['tipomaterial_descripcion_className']?>">
+						<a href="#" onclick="setFormValue('tipo_material:tipomaterial_descripcion', 'grid::order', false);setFormValue('<?=$grid['tipomaterial_descripcion_sense']?>', 'grid::sense', true);">Tipo de Material</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['lote_nombre_className']?>">
+						<a href="#" onclick="setFormValue('lote:lote_nombre', 'grid::order', false);setFormValue('<?=$grid['lote_nombre_sense']?>', 'grid::sense', true);">Nombre</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['lote_cantidad_objetos_className']?>">
+						<a href="#" onclick="setFormValue('lote:lote_cantidad_objetos', 'grid::order', false);setFormValue('<?=$grid['lote_cantidad_objetos_sense']?>', 'grid::sense', true);">Cant. objetos</a>
+					</span>
+				</th>
+				<th>Cant. Fotos</th>
+				<th>Acciones</th>
+			</tr>
+			<tr id="search_params" class="search_params">
+				<td>
+					<input type="text" name="search_coleccion:coleccion_nombre" id="search_coleccion:coleccion_nombre" value="<?=$this->escape($grid['coleccion_nombre_searchKey'])?>">
+				</td>
+				<td>
+					<input type="text" name="search_lote:lote_sigla" id="search_lote:lote_sigla" value="<?=$this->escape($grid['lote_sigla_searchKey'])?>">
+				</td>
+				<td>
+					<select name="search_tipo_material:tipomaterial_id" id="search_tipo_material:tipomaterial_id">
+						<option></option>
+	   					<? foreach ($this->tiposmaterial as $value=>$label): ?>
+	   						<? $selected = ( $value == $grid['tipomaterial_id_searchKey']) ? 'selected="selected"' : ''; ?>
+	   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+	   					<? endforeach; ?>
+					</select>
+				</td>
+				<td>
+					<input type="text" name="search_lote:lote_nombre" id="search_lote:lote_nombre" value="<?=$this->escape($grid['lote_nombre_searchKey'])?>">
+				</td>
+				<td>
+					<input type="text" name="search_lote:lote_cantidad_objetos" id="search_lote:lote_cantidad_objetos" value="<?=$this->escape($grid['lote_cantidad_objetos_searchKey'])?>" style="width: 32px;">
+				</td>
+				<td></td>
+				<td class="actions">
+					<div>
+					<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+					<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+					</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+		<? $odd = true; ?>
+		<? foreach ((array)$grid['aData'] as $row): ?>
+			<tr class="<?=($odd)?'odd':'even' ?>">
+			<? $odd = !$odd; ?>
+				<td><?=$this->escape($row['coleccion_nombre'])?></td>
+				<td><?=$this->escape($row['lote_sigla'])?></td>
+				<td><?=$this->escape($row['tipomaterial_descripcion'])?></td>
+				<td><?=$this->escape($row['lote_nombre'])?></td>
+				<td><?=$this->escape($row['lote_cantidad_objetos'])?></td>
+				<td><?=count(Fotografia::findAllFromLote($row['lote_id']))?></td>
+				<td class="actions">
+					<div>
+					<?=$this->actionLink('Ver', 
+						'lote','view',
+						array('id' => $row['lote_id']), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+					<?=$this->actionLink('Editar', 
+						'lote','edit',
+						array('id' => $row['lote_id']), array('class'=>'edit'),
+						true, array('class'=>'edit disabled')) ?>
+					<?=$this->actionLink('Eliminar', 
+						'lote','delete',
+						array('id' => $row['lote_id']), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+						true, array('class'=>'delete disabled')) ?>
+					</div>
+				</td>
+			</tr>
+		<? endforeach; ?>
+		</tbody>
+	</table>
+<? endif; ?>
+<?=$this->dataGridPager('grid') ?>
+<?=$this->dataGridSubmit() ?>
+

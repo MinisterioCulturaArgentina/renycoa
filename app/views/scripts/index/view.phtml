@@ -1,0 +1,26 @@
+
+<h3>Mensaje - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'index', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+	<dt>Usuario:</dt>
+	<dd><?=$this->escape(Usuario::findByPK($this->mensaje->usuario_id))?>&nbsp;</dd>
+	<dt>Fecha y hora de envío:</dt>
+	<dd><?=$this->mensaje->creation_date ?>&nbsp;</dd>
+	<dt>Mensaje:</dt>
+	<dd><?=$this->escape($this->mensaje->mensaje)?>&nbsp;</dd>
+</dl>
+<?
+$resource =  'mensaje_others';
+if ($this->mensaje->usuario_id == $this->usuario->id)
+{
+	$resource = 'mensaje_self';
+}
+?>
+<? if ($this->acl->isAllowed($this->usuario->rol_id, $resource,'delete')) : ?> 
+	<p>
+	<?=$this->actionLink('Eliminar', 'index','delete',array('id'=>$this->mensaje->id)) ?>
+	</p>
+<? endif; ?>

@@ -1,0 +1,112 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<h3>Objetos</h3>
+<p><?=$this->actionLink('Nuevo objeto', 'objeto','edit') ?></p>
+<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+	<p class="message">(no se han cargado objetos)</p>
+<? else: ?>
+	<table class="grid" id="tbl_objeto">
+		<thead>
+			<tr>
+				<th>
+					<span class="<?=$grid['coleccion_nombre_className']?>">
+						<a href="#" onclick="setFormValue('coleccion:coleccion_nombre', 'grid::order', false);setFormValue('<?=$grid['coleccion_nombre_sense']?>', 'grid::sense', true);">Colección</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['objeto_sigla_className']?>">
+						<a href="#" onclick="setFormValue('objeto:objeto_sigla', 'grid::order', false);setFormValue('<?=$grid['objeto_sigla_sense']?>', 'grid::sense', true);">Sigla</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['tipomaterial_descripcion_className']?>">
+						<a href="#" onclick="setFormValue('tipo_material:tipomaterial_descripcion', 'grid::order', false);setFormValue('<?=$grid['tipomaterial_descripcion_sense']?>', 'grid::sense', true);">Tipo de Material</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['objeto_nombre_className']?>">
+						<a href="#" onclick="setFormValue('objeto:objeto_nombre', 'grid::order', false);setFormValue('<?=$grid['objeto_nombre_sense']?>', 'grid::sense', true);">Nombre</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['adscripcioncultural_nombre_className']?>">
+						<a href="#" onclick="setFormValue('adscripcion_cultural:adscripcioncultural_nombre', 'grid::order', false);setFormValue('<?=$grid['adscripcioncultural_nombre_sense']?>', 'grid::sense', true);">Adsc. Cultural</a>
+					</span>
+				</th>
+				<th>Cant. Fotos</th>
+				<th>Acciones</th>
+			</tr>
+			<tr id="search_params" class="search_params">
+				<td>
+					<input type="text" name="search_coleccion:coleccion_nombre" id="search_coleccion:coleccion_nombre" value="<?=$this->escape($grid['coleccion_nombre_searchKey'])?>">
+				</td>
+				<td>
+					<input type="text" name="search_objeto:objeto_sigla" id="search_objeto:objeto_sigla" value="<?=$this->escape($grid['objeto_sigla_searchKey'])?>">
+				</td>
+				<td>
+					<select name="search_tipo_material:tipomaterial_id" id="search_tipo_material:tipomaterial_id">
+						<option></option>
+	   					<? foreach ($this->tiposmaterial as $value=>$label): ?>
+	   						<? $selected = ( $value == $grid['tipomaterial_id_searchKey']) ? 'selected="selected"' : ''; ?>
+	   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+	   					<? endforeach; ?>
+					</select>
+				</td>
+				<td>
+					<input type="text" name="search_objeto:objeto_nombre" id="search_objeto:objeto_nombre" value="<?=$this->escape($grid['objeto_nombre_searchKey'])?>">
+				</td>
+				<td>
+					<select name="search_adscripcion_cultural:adscripcioncultural_id" id="search_adscripcion_cultural:adscripcioncultural_id">
+						<option></option>
+	   					<? foreach ($this->adscripcionesculturales as $value=>$label): ?>
+	   						<? $selected = ( $value == $grid['adscripcioncultural_id_searchKey']) ? 'selected="selected"' : ''; ?>
+	   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+	   					<? endforeach; ?>
+					</select>
+				</td>
+				<td></td>
+				<td class="actions">
+					<div>
+					<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+					<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+					</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+		<? $odd = true; ?>
+		<? foreach ((array)$grid['aData'] as $row): ?>
+			<tr class="<?=($odd)?'odd':'even' ?>">
+			<? $odd = !$odd; ?>
+				<td><?=$this->escape($row['coleccion_nombre'])?></td>
+				<td><?=$this->escape($row['objeto_sigla']) ?></td>
+				<td><?=$this->escape($row['tipomaterial_descripcion'])?></td>
+				<td><?=$this->escape($row['objeto_nombre']) ?></td>
+				<td><?=$this->escape($row['adscripcioncultural_nombre'])?></td>
+				<td><?=count(Fotografia::findAllFromObjeto($row['objeto_id']))?></td>
+				<td class="actions">
+					<div>
+					<?=$this->actionLink('Ver', 
+						'objeto','view',
+						array('id' => $row['objeto_id']), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>		
+					<?=$this->actionLink('Editar', 
+						'objeto','edit',
+						array('id' => $row['objeto_id']), array('class'=>'edit'),
+						true, array('class'=>'edit disabled')) ?>
+					<?=$this->actionLink('Eliminar', 
+						'objeto','delete',
+						array('id' => $row['objeto_id']), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+						true, array('class'=>'delete disabled')) ?>
+					</div>
+				</td>
+			</tr>
+		<? endforeach; ?>
+		</tbody>
+	</table>
+<? endif; ?>
+<?=$this->dataGridPager('grid') ?>
+<?=$this->dataGridSubmit() ?>
+

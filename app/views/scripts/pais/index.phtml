@@ -1,0 +1,66 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<h3>Países</h3>
+<p><?=$this->actionLink('Nuevo país', 'pais','edit') ?></p>
+<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+	<p class="message">(no se han cargado países)</p>
+<? else: ?>
+	<table class="grid" id="tbl_pais">
+		<thead>
+			<tr>
+				<th>
+					<span class="<?=$grid['pais_descripcion_className']?>">
+						<a href="#" onclick="setFormValue('pais:pais_descripcion', 'grid::order', false);setFormValue('<?=$grid['pais_descripcion_sense']?>', 'grid::sense', true);">Descripción</a>
+					</span>
+				</th>
+	
+				<th>Acciones</th>
+			</tr>
+			<tr id="search_params" class="search_params">
+				<td>
+					<input type="text" name="search_pais:pais_descripcion" id="search_pais:pais_descripcion" value="<?=$this->escape($grid['pais_descripcion_searchKey'])?>">
+				</td>
+				<td class="actions">
+					<div>
+					<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+					<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+					</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+		<? $odd = true; ?>
+		<? foreach ((array)$grid['aData'] as $row): ?>
+			<tr class="<?=($odd)?'odd':'even' ?>">
+			<? $odd = !$odd; ?>
+				<td><?=$this->escape($row['pais_descripcion']) ?></td>
+				<td class="actions">
+					<div>
+					<?=$this->actionLink('Ver', 
+						'pais','view',
+						array('id' => $row['pais_id']), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+					<?=$this->actionLink('Editar', 
+						'pais','edit',
+						array('id' => $row['pais_id']), array('class'=>'edit'),
+						true, array('class'=>'edit disabled')) ?>
+					<? if(!Pais::isInUse($row['pais_id'])): ?>
+						<?=$this->actionLink('Eliminar', 
+							'pais','delete',
+							array('id' => $row['pais_id']), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+							true, array('class'=>'delete disabled')) ?>
+					<? else: ?> 
+						<span class="delete disabled">Eliminar</span>
+					<? endif; ?>
+					</div>
+				</td>
+			</tr>
+		<? endforeach; ?>
+		</tbody>
+	</table>
+<? endif; ?>
+<?=$this->dataGridPager('grid') ?>
+<?=$this->dataGridSubmit() ?>
+

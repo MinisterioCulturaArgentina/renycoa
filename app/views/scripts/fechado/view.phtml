@@ -1,0 +1,44 @@
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'fechado','index', array('yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">	
+	<dt>Cód. Laboratorio:</dt>
+	<dd><?=$this->escape($this->fechado->cod_laboratorio) ?>&nbsp;</dd>
+	
+	<dt>Fecha C14:</dt>
+	<dd>
+		<? if ($this->fechado->fecha_c14!='') : ?>
+			<?=$this->escape($this->fechado->fecha_c14) ?> ± <?=$this->escape($this->fechado->fecha_c14_desvio) ?> AP
+		<? else: ?>
+			&nbsp;
+		<?  endif; ?>
+	</dd>
+	
+	<dt>Fecha Calibrada 2&#962;:</dt>
+	<dd>
+		<? if ($this->fechado->fecha_calibrada_2s!='') : ?>
+			<?=$this->escape($this->fechado->fecha_calibrada_2s) ?> <?=$this->escape(TipoFecha::findByPK($this->fechado->fecha_calibrada_2s_tipo_fecha_id)) ?> - <?=$this->escape($this->fechado->fecha_calibrada_2s_desvio) ?> <?=$this->escape(TipoFecha::findByPK($this->fechado->fecha_calibrada_2s_desvio_tipo_fecha_id)) ?>
+		<? else: ?>
+			&nbsp;
+		<? endif; ?>
+	</dd>
+	
+	<dt>Fecha Calendárica:</dt>
+	<dd>
+		<? if ($this->fechado->fecha_calendarica!='') : ?>
+			<?=$this->escape($this->fechado->fecha_calendarica) ?>&nbsp;<?=$this->escape(TipoFecha::findByPK($this->fechado->fecha_calendarica_tipo_fecha_id)) ?>
+		<? else: ?>
+			&nbsp;
+		<? endif; ?>
+	</dd>
+</dl>
+<? if ($this->mode == 'edit'): ?>
+	<div class="actions">
+	<?=$this->actionLink('Editar', 'fechado','edit',array('id'=>$this->fechado->id, 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'edit'),
+		true, array('class'=>'edit disabled')) ?>
+	<?=$this->actionLink('Eliminar', 'fechado','delete',array('id'=>$this->fechado->id, 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+		true, array('class'=>'delete disabled')) ?>
+	</div>
+	<br style="clear: both"/>
+<? endif; ?>

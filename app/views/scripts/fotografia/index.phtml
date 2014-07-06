@@ -1,0 +1,60 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.pngfix.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.fancybox.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/fotografia_index.js');
+$this->headLink()->appendStylesheet($this->baseUrl . 'styles/fancy.css');
+?>
+<script type="text/javascript">
+var URL_ARGS = '<?=$this->parent_type.'_id'.'='.$this->parent_id ?>'; 
+</script>
+<? if ($this->show_fotografias == true): ?>
+	<? if ($this->mode == 'edit'): ?>
+		<p><?=$this->actionLink('Nueva fotografía', 'fotografia','edit', array($this->parent_type.'_id'=>$this->parent_id,'mode'=> $this->mode)) ?></p>
+	<? endif; ?>
+	
+	<? if (count($this->fotografias)): ?>
+		<table class="grid">
+			<thead>
+				<tr>
+					<th>Fotografía</th>
+					<th>Descripción</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<? for ($i = $this->start_index; $i < ($this->start_index + $this->max_imgs) && $i <= $this->last_index ; $i++): ?>
+				<? $f = $this->fotografias[$i]; ?>
+				<tr>
+					<td><img src="<?=$this->baseUrl.$this->img_folder.'/t'.$f->nombre_archivo?>" alt="<?=$f->descripcion?>" /></td>
+					<td><?=$f->descripcion?></td>
+					<td class="actions noedit">
+						<div>
+						<a class="view fancyimgs"  href="<?=$this->baseUrl.$this->img_folder.'/'.$f->nombre_archivo?>" title="<?=$f->descripcion?>" class="view">Ver</a>
+						<? if ($this->mode == 'edit'): ?>
+							<?=$this->actionLink('Eliminar', 
+								'fotografia','delete',
+								array('id' => $f->id, $this->parent_type.'_id' => $this->parent_id,'mode'=> $this->mode ), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+								true, array('class'=>'delete disabled'))?>
+						<? endif; ?>
+						</div>
+					</td>
+				</tr>
+				<? endfor; ?>
+			</tbody>
+		</table>
+		<? if ($this->total_pages > 1): ?>
+			<div style="text-align:center">
+				Página: <select	id="pager" style="width:auto">
+					<? for ($i=1; $i<=$this->total_pages; $i++): ?>
+						<option value="<?=$i ?>" <?=($i==$this->current_page)?'selected="selected"':'' ?>><?=$i ?></option>
+					<? endfor; ?>
+				</select>
+			</div>
+		<? endif; ?>
+	<? else: ?>
+		<p class="message">(no se han cargado fotografías)</p>
+	<? endif; ?>
+<? else: ?>
+	<p class="message">(podrá cargar fotografías luego de guardar el <?=$this->parent_type ?>)</p>
+<? endif; ?>

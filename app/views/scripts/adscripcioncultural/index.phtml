@@ -1,0 +1,80 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<h3>Adscripciones Culturales</h3>
+<p><?=$this->actionLink('Nueva adscripción cultural', 'adscripcioncultural','edit') ?></p>
+<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+	<p class="message">(no se han cargado adscripciones culturales)</p>
+<? else: ?>
+	<table class="grid" id="tbl_adscripcioncultural">
+		<thead>
+			<tr>
+				<th>
+					<span class="<?=$grid['adscripcioncultural_nombre_className']?>">
+						<a href="#" onclick="setFormValue('adscripcion_cultural:adscripcioncultural_nombre', 'grid::order', false);setFormValue('<?=$grid['adscripcioncultural_nombre_sense']?>', 'grid::sense', true);">Nombre</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['adscripcioncultural_descripcion_className']?>">
+						<a href="#" onclick="setFormValue('adscripcion_cultural:adscripcioncultural_descripcion', 'grid::order', false);setFormValue('<?=$grid['adscripcioncultural_descripcion_sense']?>', 'grid::sense', true);">Descripción</a>
+					</span>
+				</th>
+	
+				<th>Acciones</th>
+			</tr>
+			<tr id="search_params" class="search_params">
+				<td>
+					<input type="text" name="search_adscripcion_cultural:adscripcioncultural_nombre" id="search_adscripcion_cultural:adscripcioncultural_nombre" value="<?=$this->escape($grid['adscripcioncultural_nombre_searchKey'])?>">
+				</td>
+				<td>
+					<input type="text" name="search_adscripcion_cultural:adscripcioncultural_descripcion" id="search_adscripcion_cultural:adscripcioncultural_descripcion" value="<?=$this->escape($grid['adscripcioncultural_descripcion_searchKey'])?>">
+				</td>
+				<td class="actions">
+					<div>
+					<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+					<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+					</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+		<? $odd = true; ?>
+		<? foreach ((array)$grid['aData'] as $row): ?>
+			<tr class="<?=($odd)?'odd':'even' ?>">
+			<? $odd = !$odd; ?>
+				<td>
+					<?=$this->escape($row['adscripcioncultural_nombre']) ?>
+				</td>
+				<td>
+					<input type="hidden" id="id" value="<?=$row['adscripcioncultural_id']?>" />
+					<?=$this->escape($row['adscripcioncultural_descripcion'])?>
+				</td>
+				<td class="actions">
+					<div>
+					<?=$this->actionLink('Ver', 
+						'adscripcioncultural','view',
+						array('id' => $row['adscripcioncultural_id']), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+					<?=$this->actionLink('Editar', 
+						'adscripcioncultural','edit',
+						array('id' => $row['adscripcioncultural_id']), array('class'=>'edit'),
+						true, array('class'=>'edit disabled')) ?>
+					<? if(!AdscripcionCultural::isInUse($row['adscripcioncultural_id'])): ?>
+						<?=$this->actionLink('Eliminar', 
+							'adscripcioncultural','delete',
+							array('id' => $row['adscripcioncultural_id']), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+							true, array('class'=>'delete disabled')) ?>
+					<? else: ?> 
+						<span class="delete disabled">Eliminar</span>
+					<? endif; ?>
+					</div>
+				</td>
+			</tr>
+		<? endforeach; ?>
+		</tbody>
+	</table>
+<? endif; ?>
+<?=$this->dataGridPager('grid') ?>
+<?=$this->dataGridSubmit() ?>
+

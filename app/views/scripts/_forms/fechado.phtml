@@ -1,0 +1,39 @@
+<?$id = $this->element->getElement('id');?>
+<?$yacimiento_id = $this->element->getElement('yacimiento_id');?>
+<?$cod_laboratorio = $this->element->getElement('cod_laboratorio');?>
+<?$fecha_c14 = $this->element->getElement('fecha_c14');?>
+<?$fecha_c14_desvio = $this->element->getElement('fecha_c14_desvio');?>
+<?$fecha_calibrada_2s = $this->element->getElement('fecha_calibrada_2s');?>
+<?$fecha_calibrada_2s_tipo_fecha_id = $this->element->getElement('fecha_calibrada_2s_tipo_fecha_id');?>
+<?$fecha_calibrada_2s_desvio = $this->element->getElement('fecha_calibrada_2s_desvio');?>
+<?$fecha_calibrada_2s_desvio_tipo_fecha_id = $this->element->getElement('fecha_calibrada_2s_desvio_tipo_fecha_id');?>
+<?$fecha_calendarica = $this->element->getElement('fecha_calendarica');?>
+<?$fecha_calendarica_tipo_fecha_id = $this->element->getElement('fecha_calendarica_tipo_fecha_id');?>
+<?$submit = $this->element->getElement('submit');?>
+
+<form enctype="application/x-www-form-urlencoded" method="post" action="">
+	<?=$id->render()?>
+	<?=$yacimiento_id->render()?>
+	<dl>
+		<dt><label for="cod_laboratorio"><?=$cod_laboratorio->getLabel() ?></label></dt>
+		<dd>
+			<?=$cod_laboratorio->render()?>
+		</dd>
+		<dt><label for="fecha_c14"><?=$fecha_c14->getLabel() ?></label></dt>
+		<dd>
+			<?=$fecha_c14->render()?> ± <?=$fecha_c14_desvio->render()?> AP
+		</dd>
+		<dt><label for="fecha_calibrada_2s"><?=$fecha_calibrada_2s->getLabel() ?></label></dt>
+		<dd>
+			<?=$fecha_calibrada_2s->render()?> <?=$fecha_calibrada_2s_tipo_fecha_id->render()?> - <?=$fecha_calibrada_2s_desvio->render()?> <?=$fecha_calibrada_2s_desvio_tipo_fecha_id->render()?>
+		</dd>
+		<dt><label for="fecha_calendarica"><?=$fecha_calendarica->getLabel() ?></label></dt>
+		<dd>
+			<?=$fecha_calendarica->render()?> <?=$fecha_calendarica_tipo_fecha_id->render()?>
+		</dd>
+		<dt> </dt>
+		<dd>
+     		<?=$submit->render()?>
+     	</dd>
+     </dl>
+</form>

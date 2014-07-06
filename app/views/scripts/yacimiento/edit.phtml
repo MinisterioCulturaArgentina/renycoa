@@ -1,0 +1,16 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.pngfix.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.fancybox.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/datepicker/datepicker.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/datepicker/i18n/ui.datepicker-es.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/yacimiento_edit.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/unselect.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/multiselect.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/iframe_resize.js');
+$this->headLink()->appendStylesheet($this->baseUrl . 'styles/datepicker.css');
+$this->headLink()->appendStylesheet($this->baseUrl . 'styles/fancy.css');
+?>
+<h3><?=$this->pageTitle?></h3>  
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'yacimiento','index', array(), array('class'=>'back')) ?>
+<?= $this->form; ?> 
+

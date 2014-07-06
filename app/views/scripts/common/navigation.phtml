@@ -1,0 +1,16 @@
+<? 
+$first = true;
+foreach ($this->sections as $k=>$v)
+{
+	$link = $this->actionLink($v, $k,'index',array(),$this->linkAttributes[$k]); 
+	if ($link != '')
+	{
+		if (!$first)
+		{
+			echo '<span class="space"> </span>|<span class="space"> </span>';
+		}
+		echo $link;
+	}	
+	$first = false;
+}
+?>

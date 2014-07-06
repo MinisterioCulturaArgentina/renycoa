@@ -1,0 +1,34 @@
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'investigacion','index', array('yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+
+	<dt>Institución Interviniente:</dt>
+	<dd><?=$this->escape($this->investigacion->institucion_interviniente) ?>&nbsp;</dd>
+	
+	<dt>Institución Depositaria:</dt>
+	<dd><?=$this->escape($this->investigacion->institucion_depositaria) ?>&nbsp;</dd>
+	
+	<dt>Investigadores:</dt>
+	<dd><?=$this->escape($this->investigacion->investigadores) ?>&nbsp;</dd>
+	
+	<dt>Proyecto:</dt>
+	<dd><?=$this->escape($this->investigacion->proyecto) ?>&nbsp;</dd>
+	
+	<dt>Año de inicio:</dt>
+	<dd><?=$this->investigacion->ano_inicio?>&nbsp;</dd>
+	
+	<dt>Año de fin:</dt>
+	<dd><?=$this->investigacion->ano_fin?>&nbsp;</dd>
+	
+</dl>
+<? if ($this->mode == 'edit'): ?>
+	<div class="actions">
+	<?=$this->actionLink('Editar', 'investigacion','edit',array('id'=>$this->investigacion->id, 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'edit'),
+		true, array('class'=>'edit disabled')) ?>
+	<?=$this->actionLink('Eliminar', 'investigacion','delete',array('id'=>$this->investigacion->id, 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+		true, array('class'=>'delete disabled')) ?>
+	</div>
+	<br style="clear: both"/>
+<? endif; ?>

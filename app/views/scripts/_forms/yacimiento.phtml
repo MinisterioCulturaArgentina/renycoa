@@ -1,0 +1,330 @@
+<?$id = $this->element->getElement('id');?>
+<?$sigla = $this->element->getElement('sigla');?>
+<?$denominacion_sitio = $this->element->getElement('denominacion_sitio');?>
+<?$pais_id = $this->element->getElement('pais_id');?>
+<?$provincia_id = $this->element->getElement('provincia_id');?>
+<?$hidden_provincia_id = $this->element->getElement('hidden_provincia_id');?>
+<?$departamento_id = $this->element->getElement('departamento_id');?>
+<?$hidden_departamento_id = $this->element->getElement('hidden_departamento_id');?>
+<?$localidad_id = $this->element->getElement('localidad_id');?>
+<?$hidden_localidad_id = $this->element->getElement('hidden_localidad_id');?>
+<?$pais_detalle = $this->element->getElement('pais_detalle');?>
+<?$lugar_paraje = $this->element->getElement('lugar_paraje');?>
+<?$altitud = $this->element->getElement('altitud');?>
+<?$longitud = $this->element->getElement('longitud');?>
+<?$latitud = $this->element->getElement('latitud');?> 
+<?$datum = $this->element->getElement('datum');?>
+<?$carta_igm = $this->element->getElement('carta_igm');?> 
+<?$plano_catastral = $this->element->getElement('plano_catastral');?>
+<?$croquis = $this->element->getElement('croquis');?>
+<?$tipo_sitio_id = $this->element->getElement('tipo_sitio_id');?>
+<?$plano_sitio = $this->element->getElement('plano_sitio');?>
+<?$superficie = $this->element->getElement('superficie');?> 
+<?$provisorio = $this->element->getElement('provisorio');?>
+<?$fur = $this->element->getElement('fur');?>
+<?$representaciones_rupestres = $this->element->getElement('representaciones_rupestres');?>
+<?$tareas_realizadas = $this->element->getElement('tareas_realizadas');?>
+<?$funciones_inferidas = $this->element->getElement('funciones_inferidas');?>
+<?$riesgo_impacto_cultural_id = $this->element->getElement('riesgo_impacto_cultural_id');?> 
+<?$riesgo_impacto_ambiental_id = $this->element->getElement('riesgo_impacto_ambiental_id');?>
+<?$legislaciones_proteccion = $this->element->getElement('legislaciones_proteccion');?>
+<?$danos_antropicos = $this->element->getElement('danos_antropicos');?>
+<?$danos_antropicos_desc = $this->element->getElement('danos_antropicos_desc');?> 
+<?$danos_naturales = $this->element->getElement('danos_naturales');?>
+<?$danos_naturales_desc = $this->element->getElement('danos_naturales_desc');?>
+<?$intervenciones = $this->element->getElement('intervenciones');?>
+<?$intervenciones_desc = $this->element->getElement('intervenciones_desc');?> 
+<?$observaciones = $this->element->getElement('observaciones');?>
+<?$tipos_material_all = $this->element->getElement('tipos_material_all');?>
+<?$tipos_material_selected = $this->element->getElement('tipos_material_selected');?>
+<?$tipos_material = $this->element->getElement('tipos_material');?>
+<?$dominio_id = $this->element->getElement('dominio_id');?>
+<?$adscripciones_all = $this->element->getElement('adscripciones_all');?>
+<?$adscripciones_selected = $this->element->getElement('adscripciones_selected');?>
+<?$adscripciones_culturales = $this->element->getElement('adscripciones_culturales');?>
+<?$completado_por = $this->element->getElement('completado_por');?>
+<?$tipo_doc_completador_id = $this->element->getElement('tipo_doc_completador_id');?>
+<?$completador_nro_doc = $this->element->getElement('completador_nro_doc');?>
+<?$fecha = $this->element->getElement('fecha');?>
+<?$submit = $this->element->getElement('submit');?>
+
+
+ 
+<form id="<?=$this->element->getAttrib('id')?>" enctype="application/x-www-form-urlencoded" method="post" action="">
+	<?=$id->render()?>
+	<fieldset>
+		<legend>1 - Identificación del Yacimiento</legend>
+		<table>
+			<tr>
+				<th><label for="sigla"><?=$sigla->getLabel() ?></label></th>
+				<td><?=$sigla->render()?></td>				
+			</tr>
+			<tr>
+				<th><label for="denominacion_sitio"><?=$denominacion_sitio->getLabel() ?></label></th>
+				<td><?=$denominacion_sitio->render()?></td>				
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>2 - Localización</legend>
+		<table>
+			<tr>
+				<th><label for="pais_id"><?=$pais_id->getLabel() ?></label></th>
+				<td><?=$pais_id->render()?></td>
+				<td class="fill_column">&nbsp;</td>
+				<th class="pais_det" style="display:none"><label for="pais_detalle"><?=$pais_detalle->getLabel() ?></label></th>
+        <td class="pais_det" style="display:none"><?=$pais_detalle->render()?></td>
+				<th class="pais_spec"><label for="provincia_id"><?=$provincia_id->getLabel() ?></label></th>
+				<td class="pais_spec"><?=$provincia_id->render()?><?=$hidden_provincia_id->render()?></td>
+			</tr>
+			<tr class="pais_spec">
+				<th><label for="departamento_id"><?=$departamento_id->getLabel() ?></label></th>
+				<td><?=$departamento_id->render()?><?=$hidden_departamento_id->render()?></td>
+				<td>&nbsp;</td>
+				<th><label for="localidad_id"><?=$localidad_id->getLabel() ?></label></th>
+				<td><?=$localidad_id->render()?><?=$hidden_localidad_id->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="lugar_paraje"><?=$lugar_paraje->getLabel() ?></label></th>
+				<td><?=$lugar_paraje->render()?></td>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+			<tr>
+				<th colspan="5">Coordenadas Geográficas</th>
+			</tr>
+			<tr>
+				<th><label for="latitud"><?=$latitud->getLabel() ?></label></th>
+				<td><?=$latitud->render()?></td>
+				<td>&nbsp;</td>
+				<th><label for="datum"><?=$datum->getLabel() ?></label></th>
+				<td><?=$datum->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="longitud"><?=$longitud->getLabel() ?></label></th>
+				<td><?=$longitud->render()?></td>
+				<td>&nbsp;</td>
+				<th><label for="carta_igm"><?=$carta_igm->getLabel() ?></label></th>
+				<td><?=$carta_igm->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="altitud"><?=$altitud->getLabel() ?></label></th>
+				<td><?=$altitud->render()?></td>
+				<td>&nbsp;</td>
+				<th><label for="plano_catastral"><?=$plano_catastral->getLabel() ?></label></th>
+				<td><?=$plano_catastral->render()?></td>
+			</tr>
+			<tr>
+				<td colspan="5">
+					<?=$croquis->render()?><label for="croquis"><?=$croquis->getLabel() ?></label>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>3 - Datos del Sitio</legend>
+		<table>
+			<tr>
+				<td><?=$plano_sitio->render()?><label for="plano_sitio"><?=$plano_sitio->getLabel() ?></label></td>
+				<td><?=$provisorio->render()?><label for="provisorio"><?=$provisorio->getLabel() ?></label></td>
+				<td rowspan="2" class="fill_column">&nbsp;</td>
+				<th rowspan="2"><label for="superficie"><?=$superficie->getLabel() ?></label></th>
+				<td rowspan="2"><?=$superficie->render()?></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><?=$fur->render()?><label for="fur"><?=$fur->getLabel() ?></label></td>
+			</tr>
+			<tr>
+				<th><label for="tipo_sitio_id"><?=$tipo_sitio_id->getLabel() ?></label></th>
+				<td>
+					<?=$tipo_sitio_id->render()?>
+					<br /><a href="" rel="tipo_sitio_id" class="unselect">desmarcar</a>
+				</td>
+				<td rowspan="3">&nbsp;</td>
+				<th rowspan="3"><label for="funciones_inferidas"><?=$funciones_inferidas->getLabel() ?></label></th>
+				<td rowspan="3"><?=$funciones_inferidas->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="representaciones_rupestres"><?=$representaciones_rupestres->getLabel() ?></label></th>
+				<td><?=$representaciones_rupestres->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="tareas_realizadas"><?=$tareas_realizadas->getLabel() ?></label></th>
+				<td><?=$tareas_realizadas->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<fieldset>
+		<legend>4 - Conservación</legend>
+		<table>
+			<tr>
+				<th><label for="riesgo_impacto_ambiental_id"><?=$riesgo_impacto_ambiental_id->getLabel() ?></label></th>
+				<th><label for="riesgo_impacto_cultural_id"><?=$riesgo_impacto_cultural_id->getLabel() ?></label></th>
+				<td rowspan="4">&nbsp;</td>
+				<td rowspan="4">
+					<table class="subtable" align="right">
+						<tr>
+							<th><label for="danos_antropicos_desc"><?=$danos_antropicos_desc->getLabel() ?></label><?=$danos_antropicos->render()?></th>
+						</tr>
+						<tr>
+							<td><?=$danos_antropicos_desc->render()?></td>
+						</tr>
+						<tr>
+							<th><label for="danos_naturales_desc"><?=$danos_naturales_desc->getLabel() ?></label><?=$danos_naturales->render()?></th>
+						<tr>
+							<td><?=$danos_naturales_desc->render()?></td>
+						</tr>
+						<tr>	
+							<th><label for="intervenciones_desc"><?=$intervenciones_desc->getLabel() ?></label><?=$intervenciones->render()?></th>
+						</tr>
+						<tr>
+							<td><?=$intervenciones_desc->render()?></td>
+						</tr>
+						<tr>
+							<th><label for="observaciones"><?=$observaciones->getLabel() ?></label></th>
+						</tr>
+						<tr>
+							<td><?=$observaciones->render()?></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<?=$riesgo_impacto_ambiental_id->render()?>
+					<br /><a href="" rel="riesgo_impacto_ambiental_id" class="unselect">desmarcar</a>
+				</td>
+				<td>
+					<?=$riesgo_impacto_cultural_id->render()?>
+					<br /><a href="" rel="riesgo_impacto_cultural_id" class="unselect">desmarcar</a>
+				</td>
+			</tr>
+			<tr>
+				<th><label for="legislaciones_proteccion"><?=$legislaciones_proteccion->getLabel() ?></label></th>
+				<td rowspan="2">&nbsp;</td>
+				
+			</tr>
+			<tr>
+				<td><?=$legislaciones_proteccion->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>5 - Contexto Arqueológico</legend>
+		<table>
+			<tr>
+				<th colspan="4"><label><?=$tipos_material->getLabel() ?></label></th>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<table class="multiselect">
+						<tr>
+							<td>
+								<label for="tipos_material_all"><?=$tipos_material_all->getLabel() ?></label><br />
+								<?=$tipos_material_all->render()?>
+							</td>
+							<td style="text-align: center; vertical-align: middle">
+								<input type="button" id="btn_select_tipo_material" value="&rarr;" />
+								<br /><br />
+								<input type="button" id="btn_unselect_tipo_material" value="&larr;"/>
+								<?=$tipos_material->render()?>
+							</td>
+							<td>
+								<label for="tipos_material_selected"><?=$tipos_material_selected->getLabel() ?></label><br />
+								<?=$tipos_material_selected->render()?>		    
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<th id="dominio"><label for="dominio_id"><?=$dominio_id->getLabel() ?></label></th>
+				<th>&nbsp;</th>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td rowspan="3">
+					<?=$dominio_id->render()?>
+					<br /><a href="" rel="dominio_id" class="unselect">desmarcar</a>
+				</td>
+				<th>&nbsp;</th>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>6 - Fechados</legend>
+			<iframe src="<?=$this->url('fechado','index',array('yacimiento_id'=>$id->getValue()),Zend_Registry::get('config')->base_url)?>" 
+			scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe>
+	</fieldset>
+	
+	<fieldset>
+		<legend>7 - Investigaciones</legend>
+			<iframe src="<?=$this->url('investigacion','index',array('yacimiento_id'=>$id->getValue()),Zend_Registry::get('config')->base_url)?>" 
+			scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe>
+	</fieldset>
+	
+	<fieldset>
+		<legend>8 - Citas Bibliográficas</legend>
+			<iframe src="<?=$this->url('citabibliografica','index',array('yacimiento_id'=>$id->getValue()),Zend_Registry::get('config')->base_url)?>" 
+			scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe>
+	</fieldset>
+	
+	<fieldset>
+		<legend>9 - Fotografías</legend>
+			<iframe src="<?=$this->url('fotografia','index',array('yacimiento_id'=>$id->getValue()),Zend_Registry::get('config')->base_url)?>" 
+			scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; height:250px; width:100%"></iframe>
+	</fieldset>
+	
+	<fieldset>
+		<legend>10 - Adscripciones Culturales</legend>
+		<table class="multiselect">
+			<tr>
+				<td>
+					<label for="adscripciones_all"><?=$adscripciones_all->getLabel() ?></label><br />
+					<?=$adscripciones_all->render()?>
+				</td>
+				<td style="text-align: center; vertical-align: middle">
+					<input type="button" id="btn_select_adscripcion" value="&rarr;" />
+					<br /><br />
+					<input type="button" id="btn_unselect_adscripcion" value="&larr;"/>
+					<?=$adscripciones_culturales->render()?>
+				</td>
+				<td>
+					<label for="adscripciones_selected"><?=$adscripciones_selected->getLabel() ?></label><br />
+					<?=$adscripciones_selected->render()?>		    
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	<fieldset>
+		<legend>Datos de la ficha</legend>
+		<table>
+		  <tr>
+        <th><label for="tipo_doc_completador_id"><?=$tipo_doc_completador_id->getLabel() ?></label></th>
+        <td><?=$tipo_doc_completador_id->render()?></td>
+        <td class="fill_column">&nbsp;</td>
+        <th><label for="completador_nro_doc"><?=$completador_nro_doc->getLabel() ?></label></th>
+        <td><?=$completador_nro_doc->render()?></td>
+      </tr> 
+			<tr>
+				<th><label for="completado_por"><?=$completado_por->getLabel() ?></label></th>
+				<td><?=$completado_por->render()?></td>
+				<td class="fill_column">&nbsp;</td>
+				<th><label for="fecha"><?=$fecha->getLabel() ?></label></th>
+				<td><?=$fecha->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+		
+	<p class="actions">
+		<?=$submit->render()?>
+	</p>
+</form>

@@ -1,0 +1,15 @@
+<?$mensaje = $this->element->getElement('mensaje');?>
+<?$administrador = $this->element->getElement('administrador');?>
+
+<form enctype="application/x-www-form-urlencoded" method="post" action="">
+	<dl>
+		<dt><label for="mensaje"><?=$mensaje->getLabel() ?>*</label></dt>
+		<dd>
+			<?=$mensaje->render()?>
+		</dd>
+		<dt> </dt>
+		<dd>
+     		<input type="submit" name="submit" id="submit" value="Enviar">
+     	</dd>
+     </dl>
+</form>

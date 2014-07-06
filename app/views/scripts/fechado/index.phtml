@@ -1,0 +1,88 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<? if ( $this->yacimiento_id ): ?>
+	<? if ($this->mode == 'edit'): ?>
+		<p><?=$this->actionLink('Nuevo Fechado', 'fechado','edit', array('yacimiento_id'=>$this->yacimiento_id,'mode'=> $this->mode)) ?></p>
+	<? endif; ?>
+	<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+		<p class="message">(no se han cargado fechados)</p>
+	<? else: ?>
+		<table class="grid" id="tbl_fechado">
+			<thead>
+				<tr>
+					<th>
+						<span class="<?=$grid['fechado_cod_laboratorio_className']?>">
+							<a href="#" onclick="setFormValue('fechado:fechado_cod_laboratorio', 'grid::order', false);setFormValue('<?=$grid['fechado_cod_laboratorio_sense']?>', 'grid::sense', true);">Cód. Laboratorio</a>
+						</span>
+					</th>
+					<th>
+						<span class="<?=$grid['fechado_fecha_c14_className']?>">
+							<a href="#" onclick="setFormValue('fechado:fechado_fecha_c14', 'grid::order', false);setFormValue('<?=$grid['fechado_fecha_c14_sense']?>', 'grid::sense', true);">Fecha C14</a>
+						</span>
+					</th>
+					<th>
+						<span class="<?=$grid['fechado_fecha_calibrada_2s_className']?>">
+							<a href="#" onclick="setFormValue('fechado:fechado_fecha_calibrada_2s', 'grid::order', false);setFormValue('<?=$grid['fechado_fecha_calibrada_2s_sense']?>', 'grid::sense', true);">Fecha 2&#962;</a>
+						</span>
+					</th>
+					<th>
+						<span class="<?=$grid['fechado_fecha_calendarica_className']?>">
+							<a href="#" onclick="setFormValue('fechado:fechado_fecha_calendarica', 'grid::order', false);setFormValue('<?=$grid['fechado_fecha_calendarica_sense']?>', 'grid::sense', true);">Fecha Calendárica</a>
+						</span>
+					</th>
+					<th>Acciones</th>
+				</tr>
+				<tr id="search_params" class="search_params">
+					<td>
+						<input type="text" name="search_fechado:fechado_cod_laboratorio" id="search_fechado:fechado_cod_laboratorio" value="<?=$this->escape($grid['fechado_cod_laboratorio_searchKey'])?>"/>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td class="actions">
+						<div>
+						<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+						<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+						</div>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+			<? $odd = true; ?>
+			<? foreach ((array)$grid['aData'] as $row): ?>
+				<tr class="<?=($odd)?'odd':'even' ?>">
+				<? $odd = !$odd; ?>
+					<td><?=$this->escape($row['fechado_cod_laboratorio']) ?></td>
+					<td><?=$this->escape($row['fechado_fecha_c14'])?></td>
+					<td><?=$this->escape($row['fechado_fecha_calibrada_2s'])?></td>
+					<td><?=$this->escape($row['fechado_fecha_calendarica'])?></td>
+					<td class="actions">
+						<div>
+						<?=$this->actionLink('Ver', 
+						'fechado','view',
+						array('id' => $row['fechado_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+						<? if ($this->mode == 'edit'): ?>
+							<?=$this->actionLink('Editar', 
+								'fechado','edit',
+								array('id' => $row['fechado_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'edit'),
+								true, array('class'=>'edit disabled')) ?>
+							<?=$this->actionLink('Eliminar', 
+								'fechado','delete',
+								array('id' => $row['fechado_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+						true, array('class'=>'delete disabled')) ?>
+						<? endif; ?>
+						</div>
+					</td>
+				</tr>
+			<? endforeach; ?>
+			</tbody>
+		</table>
+	<? endif; ?>
+	<?=$this->dataGridPager('grid') ?>
+	<?=$this->dataGridSubmit() ?>
+<? else: ?>
+	<p class="message">(podrá cargar fechados luego de guardar el yacimiento)</p>
+<? endif; ?>

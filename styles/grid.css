@@ -1,0 +1,71 @@
+.icon-grid {
+	background-image:url(../scripts/ext/examples/shared/icons/fam/grid.png) !important;
+}
+
+.export-xls {
+    background-image:url(img/page_excel.png) !important;
+}
+
+.print {
+    background-image:url(img/printer.png) !important;
+}
+
+.x-grid3-hd-row td.ux-filtered-column {
+	font-style: italic;
+	font-weight: bold;
+} 
+
+.x-grid3-header-offset {
+	width: auto;
+}  
+
+.x-grid-panel {
+	width:100%;
+}
+
+.x-menu-list {
+	margin: 0;
+	padding: 0;
+}
+
+#content-wrap a.add {
+	padding-left: 20px;
+	padding-bottom:3px;
+	background: url(icons/page_white_add.png) left top no-repeat;
+}
+.action_edit {
+	background-image:url(icons/page_white_edit.png) !important;
+}
+.action_delete {
+	background-image:url(icons/page_white_delete.png) !important;
+}
+.action_view {
+	background-image:url(icons/folder_magnify.png) !important;
+}
+
+
+#user_index a.add {
+	background: url(icons/user_add.png) left center no-repeat;
+}
+#user_index .action_edit {
+	background-image:url(icons/user_edit.png) !important;
+}
+#user_index .action_delete {
+	background-image:url(icons/user_delete.png) !important;
+}
+	
+
+.alert-row .x-grid3-cell-inner{
+	background-color: #ffd2d2 !important;
+	font-weight: bold;
+} 
+
+.warning-row .x-grid3-cell-inner{
+  background-color: #ffffe0 !important;
+ /* font-weight: bold;*/
+} 
+
+
+.x-panel TABLE {
+  width: auto;
+ }

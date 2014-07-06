@@ -1,0 +1,36 @@
+<h3>Depósito - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'deposito','index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+	<dt>Nombre:</dt>
+	<dd><?=$this->escape($this->deposito->nombre) ?>&nbsp;</dd>
+	<dt>Domicilio:</dt>
+	<dd><?=$this->escape($this->deposito->domicilio) ?>&nbsp;</dd>
+	<dt>País:</dt>
+	<dd><?=Pais::findByPK($this->deposito->pais_id)?>&nbsp;</dd>
+	<dt>Provincia:</dt>
+	<dd><?=Provincia::findByPK($this->deposito->provincia_id)?>&nbsp;</dd>
+	<dt>Departamento:</dt>
+	<dd><?=Departamento::findByPK($this->deposito->departamento_id)?>&nbsp;</dd>
+	<dt>Localidad:</dt>
+	<dd><?=Localidad::findByPK($this->deposito->localidad_id)?>&nbsp;</dd>
+	<dt>Tel.:</dt>
+	<dd><?=$this->escape($this->deposito->telefono) ?>&nbsp;</dd>
+	<dt>Fax:</dt>
+	<dd><?=$this->escape($this->deposito->fax) ?>&nbsp;</dd>
+	<dt>E-mail:</dt>
+	<dd><?=$this->escape($this->deposito->email) ?>&nbsp;</dd>
+</dl>
+<div class="actions">
+<?=$this->actionLink('Editar', 
+	'deposito','edit',
+	array('id' => $this->deposito->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) ?>
+<?=$this->actionLink('Eliminar', 
+	'deposito','delete',
+	array('id' => $this->deposito->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) ?>
+</div>
+<br style="clear: both"/>

@@ -1,0 +1,44 @@
+<h3>Tenedor - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'tenedor', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+	<dt>Apellido:</dt>
+	<dd><?=$this->escape($this->tenedor->apellido) ?>&nbsp;</dd>
+	<dt>Nombre:</dt>
+	<dd><?=$this->escape($this->tenedor->nombres) ?>&nbsp;</dd>
+	<dt>Tipo doc.:</dt>
+	<dd><?=TipoDoc::findByPK($this->tenedor->tipo_doc_id)?>&nbsp;</dd>
+	<dt>Nro. doc.:</dt>
+	<dd><?=$this->tenedor->nro_doc ?>&nbsp;</dd>
+	<dt>Domicilio:</dt>
+	<dd><?=$this->escape($this->tenedor->domicilio) ?>&nbsp;</dd>
+	<dt>País:</dt>
+	<dd><?=Pais::findByPK($this->tenedor->pais_id)?>&nbsp;</dd>
+	<dt>Provincia:</dt>
+	<dd><?=Provincia::findByPK($this->tenedor->provincia_id)?>&nbsp;</dd>
+	<dt>Departamento:</dt>
+	<dd><?=Departamento::findByPK($this->tenedor->departamento_id)?>&nbsp;</dd>
+	<dt>Localidad:</dt>
+	<dd><?=Localidad::findByPK($this->tenedor->localidad_id)?>&nbsp;</dd>
+	<dt>Tel.:</dt>
+	<dd><?=$this->escape($this->tenedor->telefono) ?>&nbsp;</dd>
+	<dt>Fax:</dt>
+	<dd><?=$this->escape($this->tenedor->fax) ?>&nbsp;</dd>
+	<dt>E-mail:</dt>
+	<dd><?=$this->escape($this->tenedor->email) ?>&nbsp;</dd>
+	<dt>Temporario:</dt>
+	<dd><?=($this->tenedor->temporario) ? 'Si' :'No' ?>&nbsp;</dd>
+</dl>
+<div class="actions">
+<?=$this->actionLink('Editar', 
+	'tenedor','edit',
+	array('id' => $this->tenedor->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) ?>
+<?=$this->actionLink('Eliminar', 
+	'tenedor','delete',
+	array('id' => $this->tenedor->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) ?>
+</div>
+<br style="clear: both"/>

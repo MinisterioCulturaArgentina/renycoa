@@ -1,0 +1,110 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<h3>Colecciones</h3>
+<p><?=$this->actionLink('Nueva colección', 'coleccion','edit') ?></p>
+<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+	<p class="message">(no se han cargado colecciones)</p>
+<? else: ?>
+	<table class="grid" id="tbl_coleccion">
+		<thead>
+			<tr>
+				<th>
+					<span class="<?=$grid['coleccion_sigla_className']?>">
+						<a href="#" onclick="setFormValue('coleccion:coleccion_sigla', 'grid::order', false);setFormValue('<?=$grid['coleccion_sigla_sense']?>', 'grid::sense', true);">Sigla</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['coleccion_nombre_className']?>">
+						<a href="#" onclick="setFormValue('coleccion:coleccion_nombre', 'grid::order', false);setFormValue('<?=$grid['coleccion_nombre_sense']?>', 'grid::sense', true);">Nombre</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['tenedor_nombrecompleto_className']?>">
+						<a href="#" onclick="setFormValue('tenedor:tenedor_nombrecompleto', 'grid::order', false);setFormValue('<?=$grid['tenedor_nombrecompleto_sense']?>', 'grid::sense', true);">Tenedor</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['provincia_descripcion_className']?>">
+						<a href="#" onclick="setFormValue('provincia:provincia_descripcion', 'grid::order', false);setFormValue('<?=$grid['provincia_descripcion_sense']?>', 'grid::sense', true);">Provincia</a>
+					</span>
+				</th>
+				<th>
+					Cant. Objetos
+				</th>
+				<th>Acciones</th>
+			</tr>
+			<tr id="search_params" class="search_params">
+				<td>
+					<input type="text" name="search_coleccion:coleccion_sigla" id="search_coleccion:coleccion_sigla" value="<?=$grid['coleccion_sigla_searchKey']?>">
+				</td>
+				<td>
+					<input type="text" name="search_coleccion:coleccion_nombre" id="search_coleccion:coleccion_nombre" value="<?=$grid['coleccion_nombre_searchKey']?>">
+				</td>
+				<td>
+					<select name="search_tenedor:tenedor_id" id="search_tenedor:tenedor_id" style="width:200px">
+						<option></option>
+	   					<? foreach ($this->tenedores as $value=>$label): ?>
+	   						<? $selected = ( $value == $grid['tenedor_id_searchKey']) ? 'selected="selected"' : ''; ?>
+	   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+	   					<? endforeach; ?>
+					</select>
+				</td>
+				<td>
+					<select name="search_provincia:provincia_id" id="search_provincia:provincia_id">
+						<option></option>
+	   					<? foreach ($this->provincias as $value=>$label): ?>
+	   						<? $selected = ( $value == $grid['provincia_id_searchKey']) ? 'selected="selected"' : ''; ?>
+	   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+	   					<? endforeach; ?>
+					</select>
+				</td>
+				<td>&nbsp;</td>
+				<td class="actions">
+					<div>
+					<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+					<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+					</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+		<? $odd = true; ?>
+		<? foreach ((array)$grid['aData'] as $row): ?>
+			<? $coleccion = Coleccion::findByPK($row['coleccion_id']); ?>
+			<tr class="<?=($odd)?'odd':'even' ?>">
+			<? $odd = !$odd; ?>
+				<td><?=$this->escape($row['coleccion_sigla'])?></td>
+				<td><?=$this->escape($row['coleccion_nombre'])?></td>
+				<td><?=$this->escape($row['tenedor_nombrecompleto'])?></td>
+				<td><?=$this->escape($row['provincia_descripcion'])?></td>
+				<td>
+					Piezas:<?=$this->escape($coleccion->getCountChildObjeto())?> / 
+					Lotes: <?=$this->escape($coleccion->getCountChildLote())?> 
+					(<?=$this->escape($coleccion->getSumChildLoteCantidadObjetos())?>)
+				</td>
+				<td class="actions">
+					<div>
+					<?=$this->actionLink('Ver', 
+						'coleccion','view',
+						array('id' => $row['coleccion_id']), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+					<?=$this->actionLink('Editaar', 
+						'coleccion','edit',
+						array('id' => $row['coleccion_id']), array('class'=>'edit'),
+						true, array('class'=>'edit disabled')) ?>
+					<?=$this->actionLink('Eliminar', 
+						'coleccion','delete',
+						array('id' => $row['coleccion_id']), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+						true, array('class'=>'delete disabled')) ?>
+					</div>
+				</td>
+			</tr>
+		<? endforeach; ?>
+		</tbody>
+	</table>
+<? endif; ?>
+<?=$this->dataGridPager('grid') ?>
+<?=$this->dataGridSubmit() ?>
+<p><?=$this->actionLink('Generar Reporte', 'coleccion','report') ?></p>

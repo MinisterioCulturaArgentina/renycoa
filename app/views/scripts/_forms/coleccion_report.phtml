@@ -1,0 +1,38 @@
+<?$tipo_material_id= $this->element->getElement('tipo_material_id');?>
+<?$adscripcion_cultural_id = $this->element->getElement('adscripcion_cultural_id');?>
+<?$provincia_id = $this->element->getElement('provincia_id');?>
+<?$submit = $this->element->getElement('submit');?>
+<?$reset = $this->element->getElement('reset');?>
+
+<form enctype="multipart/form-data" method="post" action="">
+<fieldset>
+<legend><strong>Filtros del reporte</strong></legend>
+<table align="center" width="100%">
+  <tr>
+    <td>
+      <label for="tipo_material_id"><?=$tipo_material_id->getLabel()?></label><br/>
+      <?=$tipo_material_id->render() ?>
+    </td>
+    <td>
+      <label for=adscripcion_cultural_id><?=$adscripcion_cultural_id->getLabel()?></label><br/>
+      <?=$adscripcion_cultural_id->render() ?>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="provincia_id"><?=$provincia_id->getLabel() ?></label><br/>
+      <?=$provincia_id->render() ?>
+    </td>
+    <td>&nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><?=$reset->render() ?></td>
+    <td><?=$submit->render() ?></td>
+  </tr>
+</table>
+</fieldset>
+</form>

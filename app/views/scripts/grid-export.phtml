@@ -1,0 +1,26 @@
+<table width="100%" style="border-collapse: collapse;">
+<tr>
+  <? foreach ((array)$this->fields as $f): ?>
+    <th style="border: 1px solid silver"><?=$f->label?></th>
+  <? endforeach; ?>
+</tr>
+<? foreach ((array)$this->data as $r): ?>
+  <tr>
+  	<? foreach ((array)$this->fields as $f): ?>
+      <td style="border: 1px solid silver">
+        <?
+        switch  ($f->valueType)
+        {
+        	case (dotDev_Grid_FilterField::VALUE_NUMERIC):
+        		echo strtr(round($r->{$f->fieldId},2),'.',',');
+        		break;
+        	default:
+        		echo $r->{$f->fieldId};
+        		break;
+        }
+      	?>
+      </td>
+  	<? endforeach; ?>
+  </tr>
+<? endforeach; ?>
+</table>

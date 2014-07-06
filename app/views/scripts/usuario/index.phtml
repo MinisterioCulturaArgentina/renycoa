@@ -1,0 +1,109 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<h3>Usuarios</h3>
+<p><?=$this->actionLink('Nuevo usuario', 'usuario','edit') ?></p>
+<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+	<p class="message">(no se han cargado usuarios)</p>
+<? else: ?>
+	<table class="grid" id="tbl_usuario">
+		<thead>
+			<tr>
+				<th>
+					<span class="<?=$grid['usuario_usuario_className']?>">
+						<a href="#" onclick="setFormValue('usuario:usuario_usuario', 'grid::order', false);setFormValue('<?=$grid['usuario_usuario_sense']?>', 'grid::sense', true);">Usuario</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['usuario_nombre_className']?>">
+						<a href="#" onclick="setFormValue('usuario:usuario_nombre', 'grid::order', false);setFormValue('<?=$grid['usuario_nombre_sense']?>', 'grid::sense', true);">Nombre</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['usuario_apellido_className']?>">
+						<a href="#" onclick="setFormValue('usuario:usuario_apellido', 'grid::order', false);setFormValue('<?=$grid['usuario_apellido_sense']?>', 'grid::sense', true);">Apellido</a>
+					</span>
+				</th>
+				<th>
+					<span class="<?=$grid['rol_id_className']?>">
+						<a href="#" onclick="setFormValue('rol:rol_id', 'grid::order', false);setFormValue('<?=$grid['rol_id_sense']?>', 'grid::sense', true);">Rol</a>
+					</span>
+				</th>
+				<th>Acciones</th>
+			</tr>
+			<tr id="search_params" class="search_params">
+				<td>
+					<input type="text" name="search_usuario:usuario_usuario" id="search_usuario:usuario_usuario" value="<?=$grid['usuario_usuario_searchKey']?>">
+				</td>
+				<td>
+					<input type="text" name="search_usuario:usuario_nombre" id="search_usuario:usuario_nombre" value="<?=$grid['usuario_nombre_searchKey']?>">
+				</td>
+				<td>
+					<input type="text" name="search_usuario:usuario_apellido" id="search_usuario:usuario_apellido" value="<?=$grid['usuario_apellido_searchKey']?>">
+				</td>
+				<td>
+					<select name="search_rol:rol_id" id="search_rol:rol_id">
+						<option></option>
+	   					<? foreach ($this->roles as $value=>$label): ?>
+	   						<? $selected = ( $value == $grid['rol_id_searchKey']) ? 'selected="selected"' : ''; ?>
+	   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+	   					<? endforeach; ?>
+					</select>
+				</td>
+				<td class="actions">
+					<div><a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+					<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a></div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+		<? $odd = true; ?>
+		<? foreach ((array)$grid['aData'] as $row): ?>
+			<tr class="<?=($odd)?'odd':'even' ?>">
+			<? $odd = !$odd; ?>
+			<?
+			$resource =  'usuario_'.$row['rol_id'];
+			if ($row['usuario_id'] == $this->usuario_logged->id)
+			{
+				$resource = 'usuario_self';
+			}
+			?>
+				<td><?=$this->escape($row['usuario_usuario']) ?></td>
+				<td><?=$this->escape($row['usuario_nombre'])?></td>
+				<td><?=$this->escape($row['usuario_apellido'])?></td>
+				<td><?=$this->escape($row['rol_descripcion'])?></td>
+				<td class="actions">
+					<div>
+					<?=$this->actionLink('Ver', 
+						'usuario','view',
+						array('id' => $row['usuario_id']), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+					<? if ($this->acl->isAllowed($this->usuario_logged->rol_id, $resource,'edit')):?> 
+						<?=$this->actionLink('Editar', 
+							'usuario','edit',
+							array('id' => $row['usuario_id']), array('class'=>'edit'),
+							true, array('class'=>'edit disabled')) 
+						?>
+					<? else: ?>
+						<span class="edit disabled">Editar</span>
+					<? endif; ?>
+					<? if ($this->acl->isAllowed($this->usuario_logged->rol_id, $resource,'delete')): ?>
+						<?=$this->actionLink('Eliminar', 
+							'usuario','delete',
+							array('id' => $row['usuario_id']), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class'=>'delete'),
+							true,array('class'=>'delete disabled' )) 
+						?>
+					<? else: ?>
+						<span class="delete disabled">Eliminar</span>
+					<? endif; ?>
+					</div>
+				</td>
+			</tr>
+		<? endforeach; ?>
+		</tbody>
+	</table>
+<? endif; ?>
+<?=$this->dataGridPager('grid') ?>
+<?=$this->dataGridSubmit() ?>
+

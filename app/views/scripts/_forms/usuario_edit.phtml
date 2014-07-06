@@ -1,0 +1,72 @@
+<?$id = $this->element->getElement('id');?>
+<?$rol_id = $this->element->getElement('rol_id');?>
+<?$usuario = $this->element->getElement('usuario');?>
+<?$contrasena = $this->element->getElement('contrasena');?>
+<?$contrasena_confirm = $this->element->getElement('contrasena_confirm');?>
+<?$nombre = $this->element->getElement('nombre');?>
+<?$apellido = $this->element->getElement('apellido');?>
+<?$cargo = $this->element->getElement('cargo');?>
+<?$observaciones = $this->element->getElement('observaciones');?>
+<?$fotografia_id = $this->element->getElement('fotografia_id');?>
+<?$fotografia = $this->element->getElement('fotografia');?>
+
+<form enctype="multipart/form-data" method="post" action="">
+	<?=$id->render()?>
+	<dl>
+		<dt><label for="rol_id"><?=$rol_id->getLabel() ?></label></dt>
+		<dd>
+			<? if ($this->element->enableRol): ?>
+				<?=$rol_id->render()?>
+			<? else:?>
+				<?=Rol::findByPK($rol_id->getValue())?>
+			<? endif; ?>
+		</dd>
+		<dt><label for="usuario"><?=$usuario->getLabel() ?></label></dt>
+		<dd>
+			<div class="description"><?=$usuario->getDescription() ?></div>
+			<?=$usuario->render()?>
+		</dd>
+		<dt><label for="nombre"><?=$nombre->getLabel() ?></label></dt>
+		<dd>
+			<?=$nombre->render()?>
+		</dd>
+		<dt><label for="apellido"><?=$apellido->getLabel() ?></label></dt>
+		<dd>
+			<?=$apellido->render()?>
+		</dd>
+		<dt><label for="cargo"><?=$cargo->getLabel() ?></label></dt>
+		<dd>
+			<?=$cargo->render()?>
+		</dd>
+		<dt><label for="observaciones"><?=$observaciones->getLabel() ?></label></dt>
+		<dd>
+			<?=$observaciones->render()?>
+		</dd>
+		<dt><label for="fotografia"><?=$fotografia->getLabel() ?></label></dt>
+		<dd>
+			<div id="fotografia_container"></div>
+			<?=$fotografia_id->render() ?>
+			<?=$fotografia->render()?>
+		</dd>
+	</dl>
+	<strong>Solo si desea reestablecer la contraseña del usuario, complete los campos que siguen:</strong>
+	<dl>
+		<dt>
+			<label for="contrasena"><?=$contrasena->getLabel() ?></label>
+		</dt>
+		<dd>
+			<div class="description"><?=$contrasena->getDescription() ?></div>
+			<?=$contrasena->render()?>
+		</dd>
+		<dt><label for="contrasena_confirm"><?=$contrasena_confirm->getLabel() ?></label></dt>
+		<dd>
+			<?=$contrasena_confirm->render()?>
+		</dd>
+		
+		
+		<dt> </dt>
+		<dd>
+     		<input type="submit" name="submit" id="submit" value="Enviar">
+     	</dd>
+     </dl>
+</form>

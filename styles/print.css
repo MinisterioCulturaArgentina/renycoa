@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+BODY, TABLE * {
+ font-family: Sans, Arial, Helvetica;
+ font-size: 11px;
+}
+TH {
+ white-space: nowrap;
+}
+
+H3, A {
+  display: none;
+}
+
+DL {
+  border-bottom: 1px solid #999;
+}
+
+DL DT{
+  width: 22em;
+  padding: .5em;
+  float: left;
+  margin: 0;
+  border-top: 1px solid #999;
+  font-weight: bold;
+}
+DL DD {
+  margin-left: 23em;
+  padding: .5em;
+  border-top: 1px solid #999; 
+}
+DL DD UL {
+  padding-left: 0;
+}
+
+
+DL.view UL {
+  list-style-type: square;
+  list-style-position: inside;
+}
+.view TABLE TH,
+.view TABLE TD
+{
+  vertical-align: top;
+  text-align: left;
+}

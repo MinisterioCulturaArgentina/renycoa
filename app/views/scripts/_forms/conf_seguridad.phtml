@@ -1,0 +1,54 @@
+<?$min_letras = $this->element->getElement('min_letras');?>
+<?$min_numeros = $this->element->getElement('min_numeros');?>
+<?$min_simbolos = $this->element->getElement('min_simbolos');?>
+<?$simbolos = $this->element->getElement('simbolos');?>
+<?$largo_min = $this->element->getElement('largo_min');?>
+<?$largo_max = $this->element->getElement('largo_max');?>
+<?$dias_caducidad = $this->element->getElement('dias_caducidad');?>
+
+
+<form enctype="application/x-www-form-urlencoded" method="post" action="">
+	<dl>
+		
+		<dt><label for="min_letras"><?=$min_letras->getLabel() ?></label></dt>
+		<dd>
+			<?=$min_letras->render()?>
+		</dd>
+		
+		<dt><label for="min_numeros"><?=$min_numeros->getLabel() ?></label></dt>
+		<dd>
+			<?=$min_numeros->render()?>
+		</dd>
+		
+		<dt><label for="min_simbolos"><?=$min_simbolos->getLabel() ?></label></dt>
+		<dd>
+			<?=$min_simbolos->render()?>
+		</dd>
+		
+		<dt><label for="simbolos"><?=$simbolos->getLabel() ?></label></dt>
+		<dd>
+			<?=$simbolos->render()?>
+		</dd>
+		
+		<dt><label for="largo_min"><?=$largo_min->getLabel() ?></label></dt>
+		<dd>
+			<?=$largo_min->render()?>
+		</dd>
+		
+		<dt><label for="largo_max"><?=$largo_max->getLabel() ?></label></dt>
+		<dd>
+			<?=$largo_max->render()?>
+		</dd>
+		
+		<dt><label for="dias_caducidad"><?=$dias_caducidad->getLabel() ?></label></dt>
+		<dd>
+			<div class="description"><?=$dias_caducidad->getDescription() ?></div>
+			<?=$dias_caducidad->render()?>
+		</dd>
+		
+		<dt> </dt>
+		<dd>
+     		<input type="submit" name="submit" id="submit" value="Enviar">
+     	</dd>
+     </dl>
+</form>

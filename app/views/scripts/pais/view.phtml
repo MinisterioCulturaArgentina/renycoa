@@ -1,0 +1,18 @@
+<h3>País - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'pais', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+	<dt>Descripción:</dt>
+	<dd><?=$this->escape($this->pais->descripcion) ?>&nbsp;</dd>
+</dl>
+<div class="actions">
+<?=$this->actionLink('Editar', 
+	'pais','edit',
+	array('id' => $this->pais->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) ?>
+<?=(!Pais::isInUse($this->pais->id))? $this->actionLink('Eliminar', 'pais','delete',array('id' => $this->pais->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) : '<span class="delete disabled">Eliminar</span>' ?>
+</div>
+<br style="clear: both"/>

@@ -1,0 +1,18 @@
+<h3>Tipo de Material - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'tipomaterial', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+	<dt>Descripción:</dt>
+	<dd><?=$this->escape($this->tipomaterial->descripcion) ?>&nbsp;</dd>
+</dl>
+<div class="actions">
+<?=$this->actionLink('Editar', 
+	'tipomaterial','edit',
+	array('id' => $this->tipomaterial->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) ?>
+<?=(!TipoMaterial::isInUse($this->tipomaterial->id))? $this->actionLink('Eliminar', 'tipomaterial','delete',array('id' => $this->tipomaterial->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) : '<span class="delete disabled">Eliminar</span>' ?>
+</div>
+<br style="clear: both"/>

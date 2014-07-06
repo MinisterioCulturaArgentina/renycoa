@@ -1,0 +1,20 @@
+<h3>Adscripción Cultural - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'adscripcioncultural','index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+	<dt>Nombre:</dt>
+	<dd><?=$this->escape($this->adscripcioncultural->nombre) ?>&nbsp;</dd>
+	<dt>Descripción:</dt>
+	<dd><?=$this->escape($this->adscripcioncultural->descripcion) ?>&nbsp;</dd>
+</dl>
+<div class="actions">
+<?=$this->actionLink('Editar', 
+	'adscripcioncultural','edit',
+	array('id' => $this->adscripcioncultural->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) ?>
+<?=(!AdscripcionCultural::isInUse($this->adscripcioncultural->id))? $this->actionLink('Eliminar', 'adscripcioncultural','delete',array('id' => $this->adscripcioncultural->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) : '<span class="delete disabled">Eliminar</span>' ?>
+</div>
+<br style="clear: both"/>

@@ -1,0 +1,66 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<h3>Tipos de Material</h3>
+<p><?=$this->actionLink('Nuevo tipo de material', 'tipomaterial','edit') ?></p>
+<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+	<p class="message">(no se han cargado tipo de materiales)</p>
+<? else: ?>
+	<table class="grid" id="tbl_tipomaterial">
+		<thead>
+			<tr>
+				<th>
+					<span class="<?=$grid['tipomaterial_descripcion_className']?>">
+						<a href="#" onclick="setFormValue('tipo_material:tipomaterial_descripcion', 'grid::order', false);setFormValue('<?=$grid['tipomaterial_descripcion_sense']?>', 'grid::sense', true);">Descripción</a>
+					</span>
+				</th>
+	
+				<th>Acciones</th>
+			</tr>
+			<tr id="search_params" class="search_params">
+				<td>
+					<input type="text" name="search_tipo_material:tipomaterial_descripcion" id="search_tipo_material:tipomaterial_descripcion" value="<?=$this->escape($grid['tipomaterial_descripcion_searchKey'])?>">
+				</td>
+				<td class="actions">
+					<div>
+					<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+					<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+					</div>
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+		<? $odd = true; ?>
+		<? foreach ((array)$grid['aData'] as $row): ?>
+			<tr class="<?=($odd)?'odd':'even' ?>">
+			<? $odd = !$odd; ?>
+				<td><?=$this->escape($row['tipomaterial_descripcion']) ?></td>
+				<td class="actions">
+					<div>
+					<?=$this->actionLink('Ver', 
+						'tipomaterial','view',
+						array('id' => $row['tipomaterial_id']), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+					<?=$this->actionLink('Editar', 
+						'tipomaterial','edit',
+						array('id' => $row['tipomaterial_id']), array('class'=>'edit'),
+						true, array('class'=>'edit disabled')) ?>
+					<? if(!TipoMaterial::isInUse($row['tipomaterial_id'])): ?>
+						<?=$this->actionLink('Eliminar', 
+							'tipomaterial','delete',
+							array('id' => $row['tipomaterial_id']), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+							true, array('class'=>'delete disabled')) ?>
+					<? else: ?> 
+						<span class="delete disabled">Eliminar</span>
+					<? endif; ?>
+					</div>
+				</td>
+			</tr>
+		<? endforeach; ?>
+		</tbody>
+	</table>
+<? endif; ?>
+<?=$this->dataGridPager('grid') ?>
+<?=$this->dataGridSubmit() ?>
+

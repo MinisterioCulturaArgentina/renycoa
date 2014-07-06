@@ -1,0 +1,49 @@
+<table>
+	<tr>
+		<th><label>Apellido:</label></th>
+		<td><?=$this->escape($this->tenedor->apellido) ?></td>
+		<td>&nbsp;</td>
+		<th><label>Nombre:</label></th>
+		<td><?=$this->escape($this->tenedor->nombres) ?></td>
+	</tr>
+	<tr>
+		<th><label>Tipo doc.:</label></th>
+		<td><?=TipoDoc::findByPK($this->tenedor->tipo_doc_id)?></td>
+		<td>&nbsp;</td>
+		<th>Nro. doc.:</th>
+		<td><?=$this->tenedor->nro_doc ?></td>
+	</tr>
+	<tr>
+		<th><label>Domicilio:</label></th>
+		<td colspan="4"><?=$this->escape($this->tenedor->domicilio) ?></td>
+	</tr>
+	<tr>
+		<th><label>País:</label></th>
+		<td><?=Pais::findByPK($this->tenedor->pais_id)?></td>
+		<td>&nbsp;</td>
+		<th><label>Provincia:</label></th>
+		<td><?=Provincia::findByPK($this->tenedor->provincia_id)?></td>
+	</tr>
+	<tr>
+		<th><label>Departamento:</label></th>
+		<td><?=Departamento::findByPK($this->tenedor->departamento_id)?></td>
+		<td>&nbsp;</td>
+		<th><label>Localidad:</label></th>
+		<td><?=Localidad::findByPK($this->tenedor->localidad_id)?></td>
+	</tr>
+	<tr>
+		<th><label>Tel.:</label></th>
+		<td><?=$this->escape($this->tenedor->telefono) ?></td>
+		<td>&nbsp;</td>
+		<th><label>Fax:</label></th>
+		<td><?=$this->escape($this->tenedor->fax) ?></td>
+	</tr>
+	<tr>
+		<th><label>E-mail:</label></th>
+		<td colspan="4"><?=$this->escape($this->tenedor->email) ?></td>
+	</tr>
+	<tr>
+		<th><label>Temporario:</label></th>
+		<td colspan="4"><?=$this->escape($this->tenedor->temporario) ?></td>
+	</tr>
+</table>

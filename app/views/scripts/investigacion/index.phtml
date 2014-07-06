@@ -1,0 +1,106 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/gridsearch.js');
+$grid = $this->grid;
+?>
+<? if ( $this->yacimiento_id ): ?>
+	<? if ($this->mode == 'edit'): ?>
+		<p><?=$this->actionLink('Nueva investigación', 'investigacion','edit', array('yacimiento_id'=>$this->yacimiento_id,'mode'=> $this->mode)) ?></p>
+	<? endif; ?>
+	<? if ($grid['dofilter'] == 'false' && count((array)$grid['aData']) == 0 ): ?>
+		<p class="message">(no se han cargado investigaciones)</p>
+	<? else: ?>
+		<table class="grid" id="tbl_investigacion">
+			<thead>
+				<tr>
+					<th>
+						<span class="<?=$grid['investigacion_investigadores_className']?>">
+							<a href="#" onclick="setFormValue('investigacion:investigacion_investigadores', 'grid::order', false);setFormValue('<?=$grid['investigacion_investigadores_sense']?>', 'grid::sense', true);">Inst. Interviniente</a>
+						</span>
+					</th>
+					<th>
+						<span class="<?=$grid['investigacion_institucion_depositaria_className']?>">
+							<a href="#" onclick="setFormValue('investigacion:investigacion_institucion_depositaria', 'grid::order', false);setFormValue('<?=$grid['investigacion_institucion_depositaria_sense']?>', 'grid::sense', true);">Inst. Depositaria</a>
+						</span>
+					</th>
+					<th>
+						<span class="<?=$grid['investigacion_ano_inicio_className']?>">
+							<a href="#" onclick="setFormValue('investigacion:investigacion_ano_inicio', 'grid::order', false);setFormValue('<?=$grid['investigacion_ano_inicio_sense']?>', 'grid::sense', true);">Año Inicio</a>
+						</span>
+					</th>
+					<th>
+						<span class="<?=$grid['investigacion_ano_fin_className']?>">
+							<a href="#" onclick="setFormValue('investigacion:investigacion_ano_fin', 'grid::order', false);setFormValue('<?=$grid['investigacion_ano_fin_sense']?>', 'grid::sense', true);">Año Fin</a>
+						</span>
+					</th>
+					<th>Acciones</th>
+				</tr>
+				<tr id="search_params" class="search_params">
+					<td>
+						<input type="text" name="search_investigacion:investigacion_investigadores" id="search_investigacion:investigacion_investigadores" value="<?=$this->escape($grid['investigacion_investigadores_searchKey'])?>"/>
+					</td>
+					<td>
+						<input type="text" name="search_investigacion:investigacion_institucion_depositaria" id="search_investigacion:investigacion_institucion_depositaria" value="<?=$this->escape($grid['investigacion_institucion_depositaria_searchKey'])?>"/>
+					</td>
+					<td>
+						<select name="search_investigacion:investigacion_ano_inicio" id="search_investigacion:investigacion_ano_inicio">
+							<option></option>
+		   					<? foreach ($this->years as $value=>$label): ?>
+		   						<? $selected = ( $value == $grid['investigacion_ano_inicio_searchKey']) ? 'selected="selected"' : ''; ?>
+		   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+		   					<? endforeach; ?>
+						</select>
+					</td>
+					<td>
+						<select name="search_investigacion:investigacion_" id="search_investigacion:investigacion_">
+							<option></option>
+		   					<? foreach ($this->years as $value=>$label): ?>
+		   						<? $selected = ( $value == $grid['investigacion__searchKey']) ? 'selected="selected"' : ''; ?>
+		   						<option value="<?=$value?>" <?=$selected ?>><?=$label?></option>
+		   					<? endforeach; ?>
+						</select>
+					</td>
+					<td class="actions">
+						<div>
+						<a href="#" class="filter" onclick="gridSearch('search_params','grid');return false;">Filtrar</a>
+						<a href="#" class="unfilter" onclick="gridNoSearch('search_params','grid');return false;">Quitar Filtro</a>
+						</div>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+			<? $odd = true; ?>
+			<? foreach ((array)$grid['aData'] as $row): ?>
+				<tr class="<?=($odd)?'odd':'even' ?>">
+				<? $odd = !$odd; ?>
+					<td><?=$this->escape($row['investigacion_investigadores']) ?></td>
+					<td><?=$this->escape($row['investigacion_institucion_depositaria'])?></td>
+					<td><?=$this->escape($row['investigacion_ano_inicio'])?></td>
+					<td><?=$this->escape($row['investigacion_ano_fin'])?></td>
+					<td class="actions">
+						<div>
+						<?=$this->actionLink('Ver', 
+						'investigacion','view',
+						array('id' => $row['investigacion_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'view'),
+						true, array('class'=>'view disabled'))?>	
+						<? if ($this->mode == 'edit'): ?>
+							<?=$this->actionLink('Editar', 
+								'investigacion','edit',
+								array('id' => $row['investigacion_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'edit'),
+								true, array('class'=>'edit disabled')) ?>
+							<?=$this->actionLink('Eliminar', 
+								'investigacion','delete',
+								array('id' => $row['investigacion_id'], 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+						true, array('class'=>'delete disabled')) ?>
+						<? endif; ?>
+						</div>
+					</td>
+				</tr>
+			<? endforeach; ?>
+			</tbody>
+		</table>
+	<? endif; ?>
+	<?=$this->dataGridPager('grid') ?>
+	<?=$this->dataGridSubmit() ?>
+<? else: ?>
+	<p class="message">(podrá cargar investigaciones luego de guardar el yacimiento)</p>
+<? endif; ?>

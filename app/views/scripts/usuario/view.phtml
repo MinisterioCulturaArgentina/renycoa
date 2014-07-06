@@ -1,0 +1,33 @@
+<?
+$resource =  'usuario_'.$this->usuario->rol_id;
+if ($this->usuario->id == $this->usuario_logged->id)
+{
+	$resource = 'usuario_self';
+}
+?>
+<h3>Usuario - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'usuario', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+	<dt>Usuario:</dt>
+	<dd><?=$this->escape($this->usuario->usuario) ?>&nbsp;</dd>
+	<dt>Rol:</dt>
+	<dd><?=Rol::findByPK($this->usuario->rol_id)?>&nbsp;</dd> 
+	<dt>Nombre:</dt>
+	<dd><?=$this->escape($this->usuario->nombre) ?>&nbsp;</dd> 
+	<dt>Apellido:</dt>
+	<dd><?=$this->escape($this->usuario->apellido) ?>&nbsp;</dd>
+	<dt>Cargo:</dt>
+	<dd><?=$this->escape($this->usuario->cargo)?>&nbsp;</dd> 
+	<dt>Observaciones:</dt>
+	<dd><?=$this->escape($this->usuario->observaciones) ?>&nbsp;</dd> 
+</dl>
+<div class="actions">
+<?=($this->acl->isAllowed($this->usuario_logged->rol_id, $resource,'edit')) ? $this->actionLink('Editar', 'usuario','edit',array('id' => $this->usuario->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) : '<span class="edit disabled">Editar</span>' ?>
+<?=($this->acl->isAllowed($this->usuario_logged->rol_id, $resource,'delete')) ? $this->actionLink('Eliminar', 'usuario','delete',array('id' => $this->usuario->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) : '<span class="delete disabled">Eliminar</span>' ?>
+</div>
+<br style="clear: both"/>

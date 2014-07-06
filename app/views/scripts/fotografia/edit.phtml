@@ -1,0 +1,6 @@
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado de fotografías', 'fotografia','index', array($this->parent_type.'_id'=>$this->parent_id), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<?php echo $this->form ;?>
+<em>(Este server admite la subida de archivos de hasta <?=$this->upload_max_filesize?>)</em>

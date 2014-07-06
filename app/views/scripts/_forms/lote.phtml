@@ -1,0 +1,145 @@
+<?$id = $this->element->getElement('id');?>
+<?$sigla = $this->element->getElement('sigla');?>
+<?$nombre = $this->element->getElement('nombre');?>
+<?$coleccion_id = $this->element->getElement('coleccion_id');?>
+<?$tipo_material_id = $this->element->getElement('tipo_material_id');?>
+<?$yacimiento_id = $this->element->getElement('yacimiento_id');?>
+<?$descripcion = $this->element->getElement('descripcion');?>
+<?$cantidad_objetos = $this->element->getElement('cantidad_objetos');?>
+<?$pais_id = $this->element->getElement('pais_id');?>
+<?$provincia_id = $this->element->getElement('provincia_id');?>
+<?$hidden_provincia_id = $this->element->getElement('hidden_provincia_id');?>
+<?$departamento_id = $this->element->getElement('departamento_id');?>
+<?$hidden_departamento_id = $this->element->getElement('hidden_departamento_id');?>
+<?$localidad_id = $this->element->getElement('localidad_id');?>
+<?$hidden_localidad_id = $this->element->getElement('hidden_localidad_id');?>
+<?$pais_detalle = $this->element->getElement('pais_detalle');?>
+<?$adscripciones_all = $this->element->getElement('adscripciones_all');?>
+<?$adscripciones_selected = $this->element->getElement('adscripciones_selected');?>
+<?$adscripciones_culturales = $this->element->getElement('adscripciones_culturales');?>
+<?$tipo_doc_completador_id = $this->element->getElement('tipo_doc_completador_id');?>
+<?$completador_nro_doc = $this->element->getElement('completador_nro_doc');?>
+<?$completado_por = $this->element->getElement('completado_por');?>
+<?$fecha = $this->element->getElement('fecha');?>
+<?$submit = $this->element->getElement('submit');?>
+<?$new = $this->element->getElement('new');?>
+<form id="<?=$this->element->getAttrib('id')?>" enctype="application/x-www-form-urlencoded" method="post" action="">
+	<?=$id->render()?>
+	<fieldset>
+		<legend>1 - Identificación del Lote</legend>
+		<table>
+			<tr>
+				<th><label for=$sigla><?=$sigla->getLabel() ?></label></th>
+				<td><?=$sigla->render()?></td>
+				<td class="fill_column">&nbsp;</td>
+				<th><label for="coleccion_id"><?=$coleccion_id->getLabel() ?></label></th>
+				<td><?=$coleccion_id->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="tipo_material_id"><?=$tipo_material_id->getLabel() ?></label></th>
+				<td><?=$tipo_material_id->render()?></td>
+				<td>&nbsp;</td>
+				<th><label for="nombre"><?=$nombre->getLabel() ?></label></th>
+				<td><?=$nombre->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>2 - Procedencia</legend>
+		<table>
+			<tr>
+				<th><label for="pais_id"><?=$pais_id->getLabel() ?></label></th>
+				<td><?=$pais_id->render()?></td>
+				<td class="fill_column">&nbsp;</td>
+				<th class="pais_det" style="display:none"><label for="pais_detalle"><?=$pais_detalle->getLabel() ?></label></th>
+        <td class="pais_det" style="display:none"><?=$pais_detalle->render()?></td>
+				<th class="pais_spec"><label for="provincia_id"><?=$provincia_id->getLabel() ?></label></th>
+				<td class="pais_spec"><?=$provincia_id->render()?><?=$hidden_provincia_id->render()?></td>
+			</tr>
+			<tr class="pais_spec">
+				<th><label for="departamento_id"><?=$departamento_id->getLabel() ?></label></th>
+				<td><?=$departamento_id->render()?><?=$hidden_departamento_id->render()?></td>
+				<td>&nbsp;</td>
+				<th><label for="localidad_id"><?=$localidad_id->getLabel() ?></label></th>
+				<td><?=$localidad_id->render()?><?=$hidden_localidad_id->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="yacimiento_id"><?=$yacimiento_id->getLabel() ?></label></th>
+				<td colspan="4"><?=$yacimiento_id->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>3 - Descripción del Lote</legend>
+		<table>
+			<tr>
+				<th><label for="descripcion"><?=$descripcion->getLabel() ?></label></th>
+				<td  class="fill_column" rowspan="2">&nbsp;</td>
+				<td><?=$descripcion->render()?></td>
+			</tr>
+			<tr>
+				<th><label for="cantidad_objetos"><?=$cantidad_objetos->getLabel() ?></label></th>
+				<td><?=$cantidad_objetos->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<fieldset>
+		<legend>4 - Datos del tenedor</legend>
+		<div id="tenedor_container">
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<legend>5 - Fotografías</legend>
+			<iframe src="<?=$this->url('fotografia','index',array('lote_id'=>$id->getValue()),Zend_Registry::get('config')->base_url)?>" 
+			scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; height:250px; width:100%"></iframe>
+	</fieldset>
+	<fieldset>
+		<legend>6 - Adscripciones Culturales</legend>
+		<table class="multiselect">
+			<tr>
+				<td>
+					<label for="adscripciones_all"><?=$adscripciones_all->getLabel() ?></label><br />
+					<?=$adscripciones_all->render()?>
+				</td>
+				<td style="text-align: center; vertical-align: middle">
+					<input type="button" id="btn_select_adscripcion" value="&rarr;" />
+					<br /><br />
+					<input type="button" id="btn_unselect_adscripcion" value="&larr;"/>
+					<?=$adscripciones_culturales->render()?>
+				</td>
+				<td>
+					<label for="adscripciones_selected"><?=$adscripciones_selected->getLabel() ?></label><br />
+					<?=$adscripciones_selected->render()?>		    
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	<fieldset>
+		<legend>Datos de la ficha</legend>
+		<table>
+		  <tr>
+        <th><label for="tipo_doc_completador_id"><?=$tipo_doc_completador_id->getLabel() ?></label></th>
+        <td><?=$tipo_doc_completador_id->render()?></td>
+        <td class="fill_column">&nbsp;</td>
+        <th><label for="completador_nro_doc"><?=$completador_nro_doc->getLabel() ?></label></th>
+        <td><?=$completador_nro_doc->render()?></td>
+      </tr>
+			<tr>
+				<th><label for="completado_por"><?=$completado_por->getLabel() ?></label></th>
+				<td><?=$completado_por->render()?></td>
+				<td  class="fill_column">&nbsp;</td>
+				<th><label for="fecha"><?=$fecha->getLabel() ?></label></th>
+				<td><?=$fecha->render()?></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	
+	<p class="actions">
+		<?=$submit->render()?><?=$new->render()?><?=$new->getLabel() ?>
+	</p>
+</form>

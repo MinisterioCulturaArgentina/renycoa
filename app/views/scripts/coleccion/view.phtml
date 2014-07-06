@@ -1,0 +1,94 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/coleccion_view.js');
+?>
+<h3>Colección - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'coleccion','index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<p>
+<?=$this->actionLink('Generar reporte de objetos y lotes', 
+  'coleccion-detalle','index',
+  array('coleccion_id' => $this->coleccion->id)) ?>
+</p>
+<h4>1 - Identificación de la Colección</h4>
+<dl class="view">
+	<dt>Sigla:</dt>
+	<dd><?=$this->escape($this->coleccion->sigla) ?>&nbsp;</dd> 
+	<dt>Nombre:</dt>
+	<dd><?=$this->escape($this->coleccion->nombre) ?>&nbsp;</dd> 
+</dl>
+<h4>2 - Procedencia</h4>
+<dl class="view">
+	<dt>Países:</dt>
+	<dd>
+		<ul>
+		<? foreach ($this->paises as $pais): ?>
+			<li><?= $pais ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd> 
+	<dt>Provincia:</dt>
+	<dd><?=Provincia::findByPK($this->coleccion->provincia_id)?>&nbsp;</dd>
+	<dt>Departamento:</dt>
+	<dd><?=Departamento::findByPK($this->coleccion->departamento_id)?>&nbsp;</dd>
+	<dt>Localidad:</dt>
+	<dd><?=Localidad::findByPK($this->coleccion->localidad_id)?>&nbsp;</dd>
+	<dt>Sitio Arqueológico:</dt>
+	<dd><?=$this->escape($this->coleccion->sitio_arqueologico) ?>&nbsp;</dd> 
+</dl>
+<h4>3 - Naturaleza de la Colección</h4>
+<dl class="view">
+	<dt>Cantidad de Objetos:</dt>
+	<dd>Piezas:<?=$this->escape($this->coleccion->getCountChildObjeto())?> / 
+		Lotes: <?=$this->escape($this->coleccion->getCountChildLote())?> 
+		(<?=$this->escape($this->coleccion->getSumChildLoteCantidadObjetos())?>)</dd>
+	<dt>Provisorio:</dt>
+	<dd><?=($this->coleccion->provisorio) ? 'Si' :'No' ?>&nbsp;</dd>
+	<dt>FUR:</dt>
+	<dd><?=($this->coleccion->fur) ? 'Si' :'No' ?>&nbsp;</dd>
+	<dt>Observaciones:</dt>
+	<dd><?=$this->escape($this->coleccion->observaciones) ?>&nbsp;</dd> 
+	<dt>Tipos de material:</dt>
+	<dd>
+		<ul>
+		<? foreach ($this->tipos_material as $tipo_material): ?>
+			<li><?= $tipo_material ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd> 
+</dl>
+<h4>4 - Datos del tenedor</h4>
+<dl class="view">
+	<dt>Tenedor:</dt>
+	<dd>
+		<input type="hidden" id="tenedor_id" value="<?=$this->coleccion->tenedor_id?>" />
+		<div id="tenedor_container" class="view"></div>&nbsp;
+	</dd>
+</dl>
+<h4>5 - Lugar de Depósito</h4>
+<dl class="view">
+	<dt>Depósito:</dt>
+	<dd><?=$this->escape(Deposito::findByPK($this->coleccion->deposito_id)) ?>&nbsp;</dd>
+	<dt>Temporario:</dt>
+	<dd><?=($this->coleccion->deposito_temporario) ? 'Si' :'No' ?>&nbsp;</dd>  
+</dl>
+<h4>Datos de la ficha</h4>
+<dl class="view">
+	<dt>Completado por:</dt>
+	<dd><?=$this->escape($this->coleccion->completado_por) ?>&nbsp;</dd> 
+	<dt>Fecha:</dt>
+	<dd><?=$this->coleccion->fecha ?>&nbsp;</dd> 
+</dl>
+<div class="actions">
+<a href="#" onclick="window.open('<?=$this->url('coleccion','view',array('id' => $this->coleccion->id, 'print'=>true))?>','','height=720,width=960,scrollbars=yes')" class="print">Imprimir</a>
+<?=$this->actionLink('Editar', 
+	'coleccion','edit',
+	array('id' => $this->coleccion->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) ?>
+<?=$this->actionLink('Eliminar', 
+	'coleccion','delete',
+	array('id' => $this->coleccion->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) ?>
+</div>
+<br style="clear: both"/>

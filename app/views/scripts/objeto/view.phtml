@@ -1,0 +1,171 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.pngfix.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/jquery.fancybox.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/objeto_view.js');
+$this->headScript()->appendFile($this->baseUrl . 'scripts/iframe_resize.js');
+$this->headLink()->appendStylesheet($this->baseUrl . 'styles/fancy.css');
+?>
+<h3>Objeto - Detalle</h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'objeto', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<h4>1 - Identificación del Objeto</h4>
+<dl class="view">
+	<dt>Colección:</dt>
+	<dd><?=$this->escape(Coleccion::findByPK($this->objeto->coleccion_id))?>&nbsp;</dd>
+	
+	<dt>Sigla:</dt>
+	<dd><?=$this->escape($this->objeto->sigla)?>&nbsp;</dd>
+	
+	<dt>Tipo de Material:</dt>	
+	<dd><?=TipoMaterial::findByPK($this->objeto->tipo_material_id)?>&nbsp;</dd>
+
+	<dt>Nombre descriptivo:</dt>
+	<dd><?=$this->escape($this->objeto->nombre)?>&nbsp;</dd>
+	
+	<dt>Nro. de inventario original:</dt>
+	<dd><?=$this->escape($this->objeto->nro_inventario)?>&nbsp;</dd>
+</dl>
+<h4>2 - Procedencia</h4>
+<dl class="view">		
+	<dt>País:</dt>
+	<dd><?=Pais::findByPK($this->objeto->pais_id)?>&nbsp;</dd>
+	
+	<? if ($this->objeto->pais_id == 1): ?>
+	
+		<dt>Provincia:</dt>
+		<dd><?=Provincia::findByPK($this->objeto->provincia_id)?>&nbsp;</dd>
+		
+		<dt>Departamento:</dt>
+		<dd><?=Departamento::findByPK($this->objeto->departamento_id)?>&nbsp;</dd>
+		
+		<dt>Localidad:</dt>
+		<dd><?=Localidad::findByPK($this->objeto->localidad_id)?>&nbsp;</dd>
+	
+	<? else: ?>
+  
+    <dt>Detalle:</dt>
+    <dd><?=$this->objeto->pais_detalle?>&nbsp;</dd>
+    
+  <? endif; ?>
+	
+	<dt>Sitio arqueológico:</dt>
+	<dd><?=$this->escape(Yacimiento::findByPK($this->objeto->yacimiento_id))?>&nbsp;</dd>
+</dl>
+<h4>3 - Descripción del Objeto</h4>
+<dl class="view">	
+	
+	<dt>Alto:</dt>
+	<dd><?=($this->escape($this->objeto->alto) != '') ? $this->escape($this->objeto->alto).' cm.':''?>&nbsp;</dd>
+	
+	<dt>Ancho/Diámetro:</dt>
+	<dd><?=($this->escape($this->objeto->ancho) != '') ? $this->escape($this->objeto->ancho).' cm.':''?>&nbsp;</dd>
+	
+	<dt>Espesor:</dt>
+	<dd><?=($this->escape($this->objeto->espesor) != '') ? $this->escape($this->objeto->espesor).' cm.':''?>&nbsp;</dd>
+	
+	<dt>Forma:</dt>
+	<dd><?=$this->escape($this->objeto->forma)?>&nbsp;</dd>
+	
+	<dt>Decoración:</dt>
+	<dd><?=$this->escape($this->objeto->decoracion)?>&nbsp;</dd>
+	
+	<dt>Caracs. Distintivas:</dt>
+	<dd><?=$this->escape($this->objeto->caracs_distintivas)?>&nbsp;</dd>
+	
+	<dt>Adscripción Cultural:</dt>
+	<dd><?=AdscripcionCultural::findByPK($this->objeto->adscripcion_cultural_id)?>&nbsp;</dd>
+
+</dl>
+
+<h4>4 - Estado de Conservación</h4>
+<dl class="view">	
+	
+	<dt>Estado Estructural:</dt>
+	<dd>
+	<? if ($this->objeto->estado_completitud_id): ?>
+		<p><?=EstadoCompletitud::findByPK($this->objeto->estado_completitud_id)?></p>
+	<? endif; ?>
+	<? if ($this->objeto->estado_fragmentacion_id): ?>
+		<p><?=EstadoFragmentacion::findByPK($this->objeto->estado_fragmentacion_id)?></p>
+	<? endif; ?>
+		<ul>
+		<? foreach ($this->estados_estructurales as $estado_estructural): ?>
+			<li><?= $estado_estructural ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd>
+	
+	<dt>Estado de la superficie / decoración:</dt>
+	<dd>
+	<? if ($this->objeto->estado_superficie_id): ?>
+		<p><?=EstadoSuperficie::findByPK($this->objeto->estado_superficie_id)?></p>&nbsp;
+	<? endif; ?>
+		<ul>
+		<? foreach ($this->deterioros_superficiales as $deterioro_superficial): ?>
+			<li><?= $deterioro_superficial ?></li>
+		<? endforeach; ?>
+		</ul>&nbsp;
+	</dd>
+	<dt>Estado de la superficie (detalle):</dt>
+	<dd><?=$this->escape($this->objeto->estado_superficie_detalle)?>&nbsp;</dd>
+	
+	<dt>Características del deterioro:</dt>
+	<dd><p><strong>Químicos:</strong></p>
+		<ul>
+		<? foreach ($this->deterioros_quimicos as $deterioro_quimico): ?>
+			<li><?= $deterioro_quimico ?></li>
+		<? endforeach; ?>
+		</ul>
+		<p><strong>Biológicos:</strong></p>
+		<ul>
+		<? foreach ($this->deterioros_biologicos as $deterioro_biologico): ?>
+			<li><?= $deterioro_biologico ?></li>
+		<? endforeach; ?>
+		</ul>
+		<p><strong>Mecánicos:</strong></p>
+		<ul>
+		<? foreach ($this->deterioros_mecanicos as $deterioro_mecanico): ?>
+			<li><?= $deterioro_mecanico ?></li>
+		<? endforeach; ?>
+		</ul>
+	</dd>
+	<dt>Estado de conservación</dt>
+	<dd><?=$this->escape($this->objeto->estado_conservacion)?>&nbsp;</dd>
+
+</dl>
+
+<h4>5 - Datos del tenedor</h4>
+<dl class="view">	
+	<dt>&nbsp;</dt>
+	<dd>
+		<input type="hidden" id="coleccion_id" value="<?=$this->objeto->coleccion_id?>" />
+		<div id="tenedor_container" class="view"></div>&nbsp;
+	</dd>
+</dl>
+<div class="noprint">
+<h4>6 - Fotografías</h4>
+<iframe src="<?=$this->url('fotografia','index',array('objeto_id'=>$this->objeto->id, 'mode'=>'view'),Zend_Registry::get('config')->base_url)?>" 
+			scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0" style="overflow:visible; width:100%"></iframe>
+</div>
+<h4>Datos de la ficha</h4>		 
+<dl class="view">	
+	<dt>Completado por:</dt>
+	<dd><?=$this->escape($this->objeto->completado_por)?>&nbsp;</dd>
+		
+	<dt>Fecha:</dt>
+	<dd><?=$this->objeto->fecha?>&nbsp;</dd> 
+</dl>
+<div class="actions">
+<a href="#" onclick="window.open('<?=$this->url('objeto','view',array('id' => $this->objeto->id, 'print'=>true))?>','','height=720,width=960,scrollbars=yes')" class="print">Imprimir</a>
+<?=$this->actionLink('Editar', 
+	'objeto','edit',
+	array('id' => $this->objeto->id), array('class'=>'edit'),
+	true, array('class'=>'edit disabled')) ?>
+<?=$this->actionLink('Eliminar', 
+	'objeto','delete',
+	array('id' => $this->objeto->id), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+	true, array('class'=>'delete disabled')) ?>
+</div>
+<br style="clear: both"/>

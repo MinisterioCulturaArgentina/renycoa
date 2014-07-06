@@ -1,0 +1,33 @@
+<table>
+	<tr>
+		<th><label>Nombre:</label></th>
+		<td><?=$this->escape($this->deposito->nombre) ?></td>
+		<td>&nbsp;</td>
+		<th><label>Domicilio:</label></th>
+		<td><?=$this->escape($this->deposito->domicilio) ?></td>
+	</tr>
+	<tr>
+		<th><label>País:</label></th>
+		<td><?=Pais::findByPK($this->deposito->pais_id)?></td>
+		<td>&nbsp;</td>
+		<th><label>Provincia:</label></th>
+		<td><?=Provincia::findByPK($this->deposito->provincia_id)?></td>
+	</tr>
+	<tr>
+		<th><label>Departamento:</label></th>
+		<td><?=Departamento::findByPK($this->deposito->departamento_id)?></td>
+		<td>&nbsp;</td>
+		<th><label>Localidad:</label></th>
+		<td><?=Localidad::findByPK($this->deposito->localidad_id)?></td>
+	</tr>
+	<tr>
+		<th><label>Tel.:</label></th>
+		<td><?=$this->escape($this->deposito->telefono) ?></td>
+		<td>&nbsp;</td>
+		<th><label>Fax:</label></th>
+		<td><?=$this->escape($this->deposito->fax) ?></td>
+	</tr>
+	<tr>
+		<th><label>E-mail:</label></th>
+		<td colspan="4"><?=$this->escape($this->deposito->email) ?></td>
+</table>

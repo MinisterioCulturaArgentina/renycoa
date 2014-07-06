@@ -1,0 +1,9 @@
+<?php
+$this->headScript()->appendFile($this->baseUrl . 'scripts/deposito_edit.js');
+?>
+<h3>Depósito - Edición</h3>  
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'deposito','index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<?= $this->form; ?> 

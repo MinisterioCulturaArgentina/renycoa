@@ -1,0 +1,25 @@
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'citabibliografica','index', array('yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<dl class="view">
+
+	<dt>Año:</dt>
+	<dd><?=$this->cita_bibliografica->ano?>&nbsp;</dd>
+	
+	<dt>Autores:</dt>
+	<dd><?=$this->escape($this->cita_bibliografica->autores) ?>&nbsp;</dd>
+	
+	<dt>Cita:</dt>
+	<dd><?=$this->escape($this->cita_bibliografica->cita) ?>&nbsp;</dd>
+	
+</dl>
+<? if ($this->mode == 'edit'): ?>
+	<div class="actions">
+	<?=$this->actionLink('Editar', 'citabibliografica','edit',array('id'=>$this->cita_bibliografica->id, 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('class'=>'edit'),
+		true, array('class'=>'edit disabled')) ?>
+	<?=$this->actionLink('Eliminar', 'citabibliografica','delete',array('id'=>$this->cita_bibliografica->id, 'yacimiento_id'=>$this->yacimiento_id, 'mode'=> $this->mode), array('onclick' =>'if(confirmDelete()){return true}else{return false}', 'class' => 'delete'),
+		true, array('class'=>'delete disabled')) ?>
+	</div>
+	<br style="clear: both"/>
+<? endif; ?>

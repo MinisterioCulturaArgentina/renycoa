@@ -1,0 +1,10 @@
+<?php
+
+$this->headScript()->appendFile($this->baseUrl . 'scripts/tenedor_edit.js');
+?>
+<h3>Tenedor - Edición</h3>  
+<p>
+<?=$this->actionLink('&lt;&lt; Volver al listado', 'tenedor', 'index', array(), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<?= $this->form; ?> 

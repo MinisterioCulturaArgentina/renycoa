@@ -1,0 +1,10 @@
+<h3>Reporte de Objetos y lotes de la colección: <br /><?= $this->coleccion->sigla ?></h3>
+<p>
+<?=$this->actionLink('&lt;&lt; Volver', 'coleccion','view', array('id'=>$this->coleccion->id), array('class'=>'back')) ?>
+<br style="clear:both" />
+</p>
+<p>
+<div class="grid" >
+<div id="grid-container"></div>
+</div>
+
